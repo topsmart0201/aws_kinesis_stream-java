@@ -1,0 +1,13 @@
+*.iml
+.classpath
+.project
+.settings
+/eclipse-bin/
+.idea
+*.key
+*.gpg
+cm-file
+.DS_Store
+target
+out
+*.log
