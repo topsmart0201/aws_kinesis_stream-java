@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="71293fa0-87f9-46c0-b72c-a673a2b20343" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerscripts/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerscripts/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerscripts/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/dockerscripts/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerscripts/run-java-demoapp.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/BooleanProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ByteProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ChangeListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/CharProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/DoubleProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/FloatProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ImmutableBooleanProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ImmutableObjectProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/IntegerProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/LongProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ObjectProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/Observable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ObservableBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/Property.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ShortProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/StringProperty.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/WeakChangeListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/AudioConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/Configuration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/DefaultConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/DesktopCaptureConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/VideoConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppCachedInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/PutMediaDemo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/auth/AuthHelper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/contants/DemoTrackInfos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/Signaling.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/SignalingListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/model/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/model/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/tyrus/SignalingServiceWebSocketClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/tyrus/WebSocketClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/utils/AwsV4Signer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/webrtc/KinesisVideoPeerConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/webrtc/KinesisVideoSdpObserver.java" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="hideWarnings" value="true" />
+    <option name="HIDE_WARNINGS" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/AppMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="127" column="51" lean-forward="true" selection-start-line="127" selection-start-column="51" selection-end-line="127" selection-end-column="51" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#9204:11235" />
+                <element signature="e#11266#12073#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>putFrame</find>
+      <find>Streamed</find>
+      <find>read</find>
+      <find>ProducerStream</find>
+      <find>streamDataAvailable</find>
+      <find>PutFrame In</find>
+      <find>getStreamData</find>
+      <find>mKinesisVideoProducerJni</find>
+      <find>startStream</find>
+      <find>NativeKinesisVideoProducerStream</find>
+      <find>createStrea</find>
+      <find>start</find>
+      <find>stopStream</find>
+      <find>startKi</find>
+      <find>strat</find>
+      <find>close</find>
+      <find>NativeKinesisVideoProducerStream`</find>
+      <find>mKinesisVideoHandleMap</find>
+      <find>DemoApp</find>
+      <find>demomap</find>
+      <find>app</find>
+      <find>Vid</find>
+      <find>demoapp</find>
+      <find>demo</find>
+      <find>VideoStream</find>
+      <find>initFFMPEG</find>
+      <find>videoStream.</find>
+      <find>createImageFileMediaSource</find>
+      <find>startKinesisVideo</find>
+      <find>videoStream</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>System.out.println</replace>
+      <replace>ffmpeg</replace>
+      <replace>encodeFrame</replace>
+      <replace>private static</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\Users\Incredible\Downloads\amazon-kinesis-video-streams-producer-sdk-java\src\main\java\com</dir>
+      <dir>C:\Users\Incredible\Downloads\amazon-kinesis-video-streams-producer-sdk-java</dir>
+      <dir>C:\Users\Incredible\.m2\repository\com\amazonaws\aws-java-sdk-kinesisvideo\1.11.882\aws-java-sdk-kinesisvideo-1.11.882.jar!\com\amazonaws\services\kinesisvideo</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/auth/KinesisVideoCredentials.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/service/JavaKinesisVideoServiceClient.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppCachedInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/PutMediaDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/signaling/model/Event.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/signaling/SignalingListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/signaling/tyrus/SignalingServiceWebSocketClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/signaling/tyrus/WebSocketClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/signaling/model/Message.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/model/Message.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/model/Event.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/utils/AwsV4Signer.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/tyrus/WebSocketClient.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/beans/ByteProperty.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/VideoConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/AudioConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/DesktopCaptureConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/webrtc/KinesisVideoPeerConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/webrtc/KinesisVideoSdpObserver.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/config/Configuration.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/SignalingListener.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/signaling/tyrus/SignalingServiceWebSocketClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/mediasource/file/ImageFileMediaSourceConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/mediasource/file/ImageFrameSource.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/test.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/producer/jni/NativeLibraryLoader.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppMain1.java" />
+        <option value="$USER_HOME$/Documents/DemoAppMain-android.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/client/JavaKinesisVideoClient.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/VideoStream.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/producer/jni/NativeKinesisVideoProducerStream.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/producer/jni/NativeKinesisVideoProducerJni.java" />
+        <option value="$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppMain.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/contants/DemoTrackInfos.java" />
+        <option value="$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/auth/AuthHelper.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/dockerscripts/run-java-demoapp.sh" />
+        <option value="$PROJECT_DIR$/dockerscripts/Dockerfile" />
+        <option value="$PROJECT_DIR$/dockerscripts/README.md" />
+        <option value="$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/VideoStream.java" />
+        <option value="$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/AppMain.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="Amazon Kinesis Video Streams Producer SDK Java" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="952" />
+    <option name="y" value="-8" />
+    <option name="width" value="976" />
+    <option name="height" value="1066" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="dockerscripts" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="source" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="source" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="source" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="amazonaws" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="source" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="amazonaws" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="kinesisvideo" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="source" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="amazonaws" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="kinesisvideo" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="test" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="AmazonKinesisStream" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="AmazonKinesisStream" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="test" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/opencv-4.4.0-1.5.4-windows-x86_64.jar!/" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.31034482" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.amazonaws.kinesisvideo.demoapp" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Incredible\Downloads\amazon-kinesis-video-streams-producer-sdk-java\src\main\demo\com\amazonaws\kinesisvideo" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="AppMain" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.amazonaws.kinesisvideo.app.AppMain" />
+      <module name="AmazonKinesisStream" />
+      <option name="VM_PARAMETERS" value="-Daws.accessKeyId=AKIAY6TQDS7NUDMVKY4L -Daws.secretKey=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 -Dkvs-stream=eriksVstream -Djava.library.path=C:\Users\Incredible\Downloads\amazon-kinesis-video-streams-producer-sdk-java-master\src\main\resources\lib\windows\KinesisVideoProducerJNI.dll" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.amazonaws.kinesisvideo.demoapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71293fa0-87f9-46c0-b72c-a673a2b20343" name="Default Changelist" comment="" />
+      <created>1602778603121</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602778603121</updated>
+      <workItem from="1602778612209" duration="14166000" />
+      <workItem from="1602876416281" duration="590000" />
+      <workItem from="1602918890963" duration="7077000" />
+      <workItem from="1602944068156" duration="20303000" />
+      <workItem from="1603088083003" duration="12793000" />
+      <workItem from="1603116542201" duration="18390000" />
+      <workItem from="1603169955538" duration="5012000" />
+      <workItem from="1603176229571" duration="464000" />
+      <workItem from="1603179061264" duration="8901000" />
+      <workItem from="1603207854101" duration="4168000" />
+      <workItem from="1603216510978" duration="3700000" />
+      <workItem from="1603220242603" duration="2692000" />
+      <workItem from="1603222963056" duration="206000" />
+      <workItem from="1603223193742" duration="28927000" />
+      <workItem from="1603280733947" duration="30487000" />
+      <workItem from="1603319544368" duration="21592000" />
+      <workItem from="1603394951095" duration="5646000" />
+      <workItem from="1603401418175" duration="2887000" />
+      <workItem from="1603475923587" duration="16901000" />
+      <workItem from="1603548627940" duration="15382000" />
+      <workItem from="1603653730059" duration="4720000" />
+      <workItem from="1603692097228" duration="7546000" />
+      <workItem from="1603774412384" duration="12244000" />
+      <workItem from="1603815850547" duration="365000" />
+      <workItem from="1603816350008" duration="3382000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="248541000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.496063" visible="true" weight="0.195629" />
+      <window_info id="Structure" order="1" sideWeight="0.503937" side_tool="true" weight="0.26972282" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.12968917" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.16720258" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3290461" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49946696" weight="0.2636656" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4989339" weight="0.3290461" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5026652" side_tool="true" weight="0.3290461" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49733475" weight="0.14255092" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32995737" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven" order="6" weight="0.32995737" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.496063" visible="true" weight="0.1913646" />
+      <window_info id="Structure" order="1" sideWeight="0.503937" side_tool="true" weight="0.26972282" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.22079314" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.46838155" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3290461" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49946696" weight="0.2636656" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4989339" weight="0.3290461" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5026652" side_tool="true" weight="0.3290461" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49733475" weight="0.14255092" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32995737" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven" order="6" weight="0.32995737" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/PutMediaDemo.java</url>
+          <line>63</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/dev/onvoid/webrtc/webrtc-java/0.2.0/webrtc-java-0.2.0.jar!/dev/onvoid/webrtc/RTCIceCandidate.class</url>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/dev/onvoid/webrtc/webrtc-java/0.2.0/webrtc-java-0.2.0.jar!/dev/onvoid/webrtc/RTCSdpType.class</url>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="iceServerConfigResult" language="JAVA" />
+        <watch expression="peerIceServers.get(0)" />
+        <watch expression="transceiver.getReceiver()" language="JAVA" />
+        <watch expression="mediaStreams[0].id()" language="JAVA" />
+        <watch expression="track.getKind()" language="JAVA" />
+        <watch expression="videoTrack" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/amazon_kinesis_video_streams_producer_sdk_java$DemoAppMain.ic" NAME="DemoAppMain Coverage Results" MODIFIED="1603297870300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.amazonaws.kinesisvideo.demoapp.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>frame.retain();</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>((NativeI420Buffer) frame.buffer).width</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>videoTrack.addSink();</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>videoTrack</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>track.getKind()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mediaStreams[0].id()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mediaStreams[0].getVideoTracks()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mediaStreams[0].getAudioTracks()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>transceiver.getReceiver()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>transceiver.getReceiver().getTrack()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://$MAVEN_REPOSITORY$/dev/onvoid/webrtc/webrtc-java/0.2.0/webrtc-java-0.2.0.jar!/dev/onvoid/webrtc/media/FourCC.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/dev/onvoid/webrtc/webrtc-java/0.2.0/webrtc-java-0.2.0.jar!/dev/onvoid/webrtc/media/video/VideoTrackSink.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/test.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/avcodec/AVCodecContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5491">
+          <caret line="348" column="33" selection-start-line="348" selection-start-column="33" selection-end-line="348" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/dev/onvoid/webrtc/webrtc-java/0.2.0/webrtc-java-0.2.0.jar!/dev/onvoid/webrtc/media/video/VideoTrack.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-14/lib/src.zip!/java.base/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="397" selection-start-line="397" selection-end-line="397" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-14/lib/src.zip!/java.base/java/lang/System.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="1834" selection-start-line="1834" selection-end-line="1834" />
+          <folding>
+            <element signature="e#77150#77151#0" expanded="true" />
+            <element signature="e#77199#77200#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/1.5.4/javacpp-1.5.4.jar!/org/bytedeco/javacpp/Loader.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="1477" selection-start-line="1477" selection-end-line="1477" />
+          <folding>
+            <element signature="e#38021#38022#0" expanded="true" />
+            <element signature="e#38097#38098#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-14/lib/src.zip!/java.base/java/lang/ClassLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="2486" selection-start-line="2486" selection-end-line="2486" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/producer/jni/NativeLibraryLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="40" column="61" lean-forward="true" selection-start-line="40" selection-start-column="61" selection-end-line="40" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-14/lib/src.zip!/java.base/java/io/PrintStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="1025" column="16" selection-start-line="1025" selection-start-column="16" selection-end-line="1025" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/1.5.4/javacpp-1.5.4.jar!/org/bytedeco/javacpp/IntPointer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="24" column="30" lean-forward="true" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppMain1.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/global/avformat.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11713">
+          <caret line="735" column="106" selection-start-line="735" selection-start-column="92" selection-end-line="735" selection-end-column="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/avformat/AVOutputFormat.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/1.5.4/javacpp-1.5.4.jar!/org/bytedeco/javacpp/annotation/ByPtrPtr.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/client/mediasource/MediaSourceSink.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/DemoAppMain1.java" />
+    <entry file="file://$USER_HOME$/Documents/DemoAppMain-android.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/global/avcodec.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="1139" column="42" selection-start-line="1139" selection-start-column="29" selection-end-line="1139" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/global/swscale.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="100" column="36" selection-start-line="100" selection-start-column="36" selection-end-line="100" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/global/avutil.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="2803" column="16" lean-forward="true" selection-start-line="2803" selection-start-column="16" selection-end-line="2803" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/1.5.4/javacpp-1.5.4.jar!/org/bytedeco/javacpp/PointerPointer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="517">
+          <caret line="248" column="18" selection-start-line="248" selection-start-column="11" selection-end-line="248" selection-end-column="18" />
+          <folding>
+            <element signature="e#7562#7563#0" expanded="true" />
+            <element signature="e#7611#7612#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/ffmpeg/4.3.1-1.5.4/ffmpeg-4.3.1-1.5.4.jar!/org/bytedeco/ffmpeg/avcodec/AVPacket.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/1.5.4/javacpp-1.5.4.jar!/org/bytedeco/javacpp/BytePointer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="162" column="27" lean-forward="true" selection-start-line="162" selection-start-column="27" selection-end-line="162" selection-end-column="27" />
+          <folding>
+            <element signature="e#4954#4955#0" expanded="true" />
+            <element signature="e#4996#4997#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp/1.5.4/javacpp-1.5.4.jar!/org/bytedeco/javacpp/Pointer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="430" column="88" lean-forward="true" selection-start-line="430" selection-start-column="88" selection-end-line="430" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-14/lib/src.zip!/java.base/java/io/FileOutputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="332" column="16" selection-start-line="332" selection-start-column="16" selection-end-line="332" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/client/mediasource/MediaSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/client/JavaKinesisVideoClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="40" column="33" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/mediasource/file/ImageFileMediaSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="64" column="67" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
+          <folding>
+            <element signature="e#4447#4448#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/client/KinesisVideoClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/client/mediasource/MediaSourceConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/mediasource/file/ImageFileMediaSourceConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+          <folding>
+            <element signature="e#960#961#0" expanded="true" />
+            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#1027#1028#0" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
+            <element signature="e#1139#1140#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/PutMediaDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="813">
+          <caret line="69" column="50" selection-start-line="69" selection-start-column="50" selection-end-line="69" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/VideoStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/mediasource/OnStreamDataAvailable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/mediasource/file/ImageFrameSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="122" column="70" selection-start-line="122" selection-start-column="36" selection-end-line="122" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/producer/jni/NativeKinesisVideoProducerStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="448" column="5" selection-start-line="448" selection-start-column="5" selection-end-line="448" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/internal/producer/jni/NativeKinesisVideoProducerJni.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3777">
+          <caret line="418" column="31" lean-forward="true" selection-start-line="418" selection-start-column="31" selection-end-line="418" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/demo/com/amazonaws/kinesisvideo/demoapp/DemoAppMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="274" column="52" selection-start-line="274" selection-start-column="52" selection-end-line="274" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="213" column="39" selection-start-line="213" selection-start-column="39" selection-end-line="213" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="269">
+            <caret line="68" column="277" selection-start-line="68" selection-start-column="277" selection-end-line="68" selection-end-column="277" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerscripts/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/auth/AuthHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/contants/DemoTrackInfos.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="46" lean-forward="true" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerscripts/run-java-demoapp.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="296" selection-start-line="19" selection-start-column="296" selection-end-line="19" selection-end-column="296" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/amazonaws/kinesisvideo/java/client/KinesisVideoJavaClientFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerscripts/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="64">
+            <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dockerscripts/run-java-app.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="34" lean-forward="true" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/VideoStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="70" column="25" lean-forward="true" selection-start-line="70" selection-start-column="25" selection-end-line="70" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#startKinesisVideo#0;class#VideoStream#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/source/com/amazonaws/kinesisvideo/app/AppMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="127" column="51" lean-forward="true" selection-start-line="127" selection-start-column="51" selection-end-line="127" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#9204:11235" />
+            <element signature="e#11266#12073#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31034482" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31034482" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31034482" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>AmazonKinesisStream</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31034482" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: aopalliance:aopalliance:1.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31034482" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
