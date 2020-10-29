@@ -1,20 +1,27 @@
 #!/bin/bash
-# Demo run of Java SDK application for sending video streams
+# App run of Java SDK application for sending video streams
 # within the docker container
 #
-#if [ "$#" != 3 ]; then
-# echo " Usage: ./run-java-app.sh access_key secret_key kvs_stream"
-# exit
-#fi
+if [ "$#" != 5 ]; then
+ echo " Usage: ./run-java-app.sh access_key secret_key region kvs_stream kvs_channel"
+ exit
+fi
+
 ACCESS_KEY=$1
 SECRET_KEY=$2
-KVS_STREAM=$3
+REGION=$3
+KVS_STREAM=$4
+KVS_CHANNEL=$5
+
 mvn package
 # Create a temporary filename in /tmp directory
 jar_files=$(mktemp)
 # Create classpath string of dependencies from the local repository to a file
 mvn -Dmdep.outputFile=$jar_files dependency:build-classpath
-export LD_LIBRARY_PATH=/home/ubuntu/Downloads/amazon-kinesis-video-streams-producer-sdk-cpp/open-source/local/lib:$LD_LIBRARY_PATH
+cd ../amazon-kinesis-video-streams-producer-sdk-cpp
+export LD_LIBRARY_PATH=${pwd}/open-source/local/lib:$LD_LIBRARY_PATH
+cd -
 classpath_values=$(cat $jar_files)
 # Start the app
-java -classpath target/amazon-kinesis-video-streams-producer-sdk-java-1.10.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Dkvs-stream=${KVS_STREAM} -Djava.library.path=/home/ubuntu/Downloads/kvs_bridge/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Dkvs-stream=${KVS_STREAM} -Dkvs-channel=${KVS_CHANNEL} -Djava.library.path=$(pwd)/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+

@@ -31,10 +31,12 @@ import static org.bytedeco.ffmpeg.global.swscale.*;
 import java.util.concurrent.*;
 
 public class VideoConverter {
-    private final int dst_w;
-    private final int dst_h;
-    private final int src_w;
-    private final int src_h;
+    private static int default_width = 0;
+    private static int default_height = 0;
+    private int dst_w;
+    private int dst_h;
+    private int src_w;
+    private int src_h;
     private final int src_pix_fmt;
     private final int dst_pix_fmt;
     private AVCodec codec;
@@ -58,6 +60,8 @@ public class VideoConverter {
     public VideoConverter(Semaphore mutex, int width, int height, int src_pix_fmt, int dst_pix_fmt) {
         this.mutex = mutex;
 
+        default_width = width;
+        default_height = height;
         this.src_w = width;
         this.src_h = height;
         this.dst_w = width;
@@ -103,6 +107,7 @@ public class VideoConverter {
         /* frames per second */
         AVRational frame_rate = av_d2q(25, 1001000);
         this.c.time_base(av_inv_q(frame_rate));
+        this.c.framerate(frame_rate);
 
         /* emit one intra frame every ten frames
          * check frame pict_type before passing frame
@@ -110,11 +115,15 @@ public class VideoConverter {
          * then gop_size is ignored and the output of encoder
          * will always be I frame irrespective to gop_size
          */
-        this.c.gop_size(10);
+        this.c.gop_size(25);
+        this.c.keyint_min(25);
         this.c.max_b_frames(1);
+        this.c.scenechange_threshold(0);
         this.c.pix_fmt(AV_PIX_FMT_YUV420P);
-        if (this.codec.id() == AV_CODEC_ID_H264)
+        if (this.codec.id() == AV_CODEC_ID_H264) {
             av_opt_set(this.c.priv_data(), "preset", "fast", 0);
+            av_opt_set(this.c.priv_data(), "x264opts", "no-scenecut", 0);
+        }
 
         /* open it */
         int ret = avcodec_open2(this.c, this.codec, (PointerPointer) null);
@@ -171,7 +180,10 @@ public class VideoConverter {
         VideoFrame frame = null;
         try {
             this.mutex.acquire();
-            frame = AppMain.videoFrame;
+            if (AppMain.videoFrames.size() > 0) {
+                frame = AppMain.videoFrames.firstElement();
+                AppMain.videoFrames.remove(0);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -182,13 +194,28 @@ public class VideoConverter {
             return;
         }
 
-        byte[] bytes = new byte[frame.buffer.getHeight() * frame.buffer.getWidth() * 4];
+        if (default_width != frame.buffer.getWidth() || default_height != frame.buffer.getHeight()) {
+            default_width = src_w = frame.buffer.getWidth();
+            default_height = src_h = frame.buffer.getHeight();
+            System.out.println("Changing sws_ctx: " + default_width+" "+default_height+" "+dst_w+" "+dst_h);
+            sws_ctx = sws_getContext(src_w, src_h, src_pix_fmt,
+                    dst_w, dst_h, dst_pix_fmt,
+                    SWS_BILINEAR, null, null, (double[]) null);
+            System.out.println("Finished");
+
+            if (sws_ctx.isNull()) {
+                System.out.println("Impossible to create scale context for the conversion " + "fmt:%s s:%dx%d -> fmt:%s s:%dx%d\n" + av_get_pix_fmt_name(this.src_pix_fmt) + this.src_w + this.src_h + av_get_pix_fmt_name(this.dst_pix_fmt) + this.dst_w + this.dst_h);
+                return ;
+            }
+        }
+
+        byte[] bytes = new byte[default_width * default_height * 4];
         try {
             VideoBufferConverter.convertFromI420(frame.buffer, bytes, FourCC.BGRA);
 
             // Part-1
-            avpicture_fill(new AVPicture(picture), bytes, src_pix_fmt, c.width(), c.height());
-            sws_scale(sws_ctx, picture.data(), picture.linesize(), 0, c.height(), dst_data, dst_linesize);
+            avpicture_fill(new AVPicture(picture), bytes, src_pix_fmt, default_width, default_height);
+            sws_scale(sws_ctx, picture.data(), picture.linesize(), 0, default_height, dst_data, dst_linesize);
 
             encodeFrame = av_frame_alloc();
 
@@ -222,11 +249,23 @@ public class VideoConverter {
                 if (pkt.size() > 0) {
                     byte[] writeData = new byte[pkt.size()];
                     pkt.data().get(writeData, 0, pkt.size());
+//                    try {
+//                        FileOutputStream fos = null;
+//                        String filename = String.format("frame-%04d.h264", encodeIndex);
+//                        fos = new FileOutputStream("/home/ubuntu/h264/" + filename);
+//                        fos.write(writeData, 0, pkt.size());
+//                        fos.close();
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                        System.exit(-1);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                        System.exit(-1);
+//                    }
 
                     try {
                         this.mutex.acquire();
                         AppMain.videoList.add(writeData);
-                        System.out.println("VideoConverter " + AppMain.videoList.size());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } finally {

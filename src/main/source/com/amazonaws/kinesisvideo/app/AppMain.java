@@ -74,7 +74,6 @@ import static org.bytedeco.ffmpeg.global.swscale.*;
  */
 public final class AppMain {
     // Use a different stream name when testing audio/video sample
-    private static final String STREAM_NAME = "eriksVstream";
     private static final int FPS_25 = 25;
     private static final int RETENTION_ONE_HOUR = 1;
     private static final String IMAGE_DIR = "src/main/resources/data/h264/";
@@ -85,7 +84,7 @@ public final class AppMain {
     private static final String IMAGE_FILENAME_FORMAT = "frame-%04d.h264";
     private static final int START_FILE_INDEX = 23;
     private static final int END_FILE_INDEX = 9000;
-    private static final String DEFAULT_REGION = "us-east-1";
+    private static final String DEFAULT_REGION = System.getProperty("aws.region");
     private static final List<ResourceEndpointListItem> mEndpointList = new ArrayList<>();
 
     private static String mChannelArn = "";
@@ -107,17 +106,22 @@ public final class AppMain {
     public static VideoConverter videoConverter = null;
 
     public static VideoFrame videoFrame = null;
+    public static Vector<VideoFrame> videoFrames = new Vector<>();
 
     public static FileOutputStream fos = null;
     public static Semaphore mutex = new Semaphore(1);
     public static Vector<byte[]> videoList = new Vector<byte[]>();
     public static boolean isInit = false;
 
+    public static String kvsStream = System.getProperty("kvs-stream");
+    public static String kvsChannel = System.getProperty("kvs-channel");
+
     private AppMain() {
         throw new UnsupportedOperationException();
     }
 
     public static void main(final String[] args) {
+        System.out.println(DEFAULT_REGION + " " + kvsStream + " " + kvsChannel);
 
         startKinesisVideo();
 
@@ -127,7 +131,7 @@ public final class AppMain {
                 .build();
 
         DescribeSignalingChannelRequest descRequest = new DescribeSignalingChannelRequest();
-        descRequest.setChannelName("eriks");
+        descRequest.setChannelName(kvsChannel);
 
         DescribeSignalingChannelResult descResult = kinesis_client.describeSignalingChannel(descRequest);
 
@@ -376,7 +380,7 @@ public final class AppMain {
     private static void publishFrame(VideoFrame frame) {
         // FFMPEG
         if (!isInit) {
-            videoConverter = new VideoConverter(mutex, 640, 360);
+            videoConverter = new VideoConverter(mutex, frame.buffer.getWidth(), frame.buffer.getHeight());
             int ret = videoConverter.init();
             if (ret == 0) {
                 videoConverter.start();
@@ -391,7 +395,7 @@ public final class AppMain {
 
         try {
             mutex.acquire();
-            videoFrame = frame;
+            videoFrames.add(frame);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -512,7 +516,7 @@ public final class AppMain {
                         .endFileIndex(END_FILE_INDEX)
                         //.contentType("video/hevc") // for h265
                         .build();
-        final ImageFileMediaSource mediaSource = new ImageFileMediaSource(STREAM_NAME);
+        final ImageFileMediaSource mediaSource = new ImageFileMediaSource(kvsStream);
         mediaSource.configure(configuration);
 
         return mediaSource;
@@ -531,7 +535,7 @@ public final class AppMain {
                         .withAbsoluteTimecode(ABSOLUTE_TIMECODES)
                         .withTrackInfoList(TrackInfos.createTrackInfoList())
                         .build();
-        final AudioVideoFileMediaSource mediaSource = new AudioVideoFileMediaSource(STREAM_NAME);
+        final AudioVideoFileMediaSource mediaSource = new AudioVideoFileMediaSource(kvsStream);
         mediaSource.configure(configuration);
 
         return mediaSource;

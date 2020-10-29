@@ -117,8 +117,6 @@ public class ImageFrameSource {
 
         final int flags = isKeyFrame() ? FRAME_FLAG_KEY_FRAME : FRAME_FLAG_NONE;
 
-//        try {
-//            final byte[] data = Files.readAllBytes(path);
         byte[] data = null;
         try {
             AppMain.mutex.acquire();
@@ -143,15 +141,10 @@ public class ImageFrameSource {
                 currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
                 FRAME_DURATION_20_MS * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
                 ByteBuffer.wrap(data));
-//        } catch (final IOException e) {
-//            log.error("Read file failed with Exception ", e);
-//        }
-
-//        return null;
     }
 
     private boolean isKeyFrame() {
-        return frameCounter % 10 == 0;
+        return frameCounter % 25 == 0;
     }
 
 
