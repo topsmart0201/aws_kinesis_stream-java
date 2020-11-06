@@ -14,11 +14,14 @@ import org.bytedeco.ffmpeg.avutil.AVRational;
 import org.bytedeco.ffmpeg.swscale.SwsContext;
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.IntPointer;
+import org.bytedeco.javacpp.Pointer;
 import org.bytedeco.javacpp.PointerPointer;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.sql.Timestamp;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -53,12 +56,14 @@ public class VideoConverter {
     private ExecutorService executor = Executors.newFixedThreadPool(1);
     private boolean isRunning = false;
     private final Semaphore mutex;
+    private int fps;
 
     public static int MAX_LIST_SIZE = 30;
 
 
-    public VideoConverter(Semaphore mutex, int width, int height, int src_pix_fmt, int dst_pix_fmt) {
+    public VideoConverter(Semaphore mutex, int width, int height, int fps, int src_pix_fmt, int dst_pix_fmt) {
         this.mutex = mutex;
+        this.fps = fps;
 
         default_width = width;
         default_height = height;
@@ -71,12 +76,12 @@ public class VideoConverter {
         this.dst_pix_fmt = dst_pix_fmt;
     }
 
-    public VideoConverter(Semaphore mutex, int width, int height, int src_pix_fmt) {
-        this(mutex, width, height, src_pix_fmt, AV_PIX_FMT_YUV420P);
+    public VideoConverter(Semaphore mutex, int width, int height, int fps, int src_pix_fmt) {
+        this(mutex, width, height, fps, src_pix_fmt, AV_PIX_FMT_YUV420P);
     }
 
-    public VideoConverter(Semaphore mutex, int width, int height) {
-        this(mutex, width, height, AV_PIX_FMT_ARGB, AV_PIX_FMT_YUV420P);
+    public VideoConverter(Semaphore mutex, int width, int height, int fps) {
+        this(mutex, width, height, fps, AV_PIX_FMT_ARGB, AV_PIX_FMT_YUV420P);
     }
 
     public int init() {
@@ -100,12 +105,14 @@ public class VideoConverter {
         }
 
         /* put sample parameters */
-        this.c.bit_rate(400000);
+//        this.c.bit_rate(400000);
+        this.c.bit_rate(1500000);
         /* resolution must be a multiple of two */
         this.c.width(this.dst_w);
         this.c.height(this.dst_h);
         /* frames per second */
-        AVRational frame_rate = av_d2q(25, 1001000);
+//        AVRational frame_rate = av_d2q(25, 1001000);
+        AVRational frame_rate = av_d2q(fps, 1000);
         this.c.time_base(av_inv_q(frame_rate));
         this.c.framerate(frame_rate);
 
@@ -115,8 +122,8 @@ public class VideoConverter {
          * then gop_size is ignored and the output of encoder
          * will always be I frame irrespective to gop_size
          */
-        this.c.gop_size(25);
-        this.c.keyint_min(25);
+        this.c.gop_size(fps);
+        this.c.keyint_min(fps);
         this.c.max_b_frames(1);
         this.c.scenechange_threshold(0);
         this.c.pix_fmt(AV_PIX_FMT_YUV420P);
@@ -169,39 +176,52 @@ public class VideoConverter {
     public void stop() {
         isRunning = false;
         executor.shutdown();
+
+        avcodec_free_context(c);
+        av_frame_free(encodeFrame);
+        av_packet_free(pkt);
+        sws_freeContext(sws_ctx);
     }
 
     public void convert() {
         if (AppMain.videoList.size() >= MAX_LIST_SIZE) {
 //            System.out.println("The count of frame list is more than " + MAX_LIST_SIZE);
             return;
+        }else if (AppMain.videoFrames.size() == 0){
+            try {
+                Thread.sleep(10); // sleep in 10ms
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return;
         }
 
-        VideoFrame frame = null;
+        FrameBuffer frame = null;
         try {
-            this.mutex.acquire();
+            AppMain.frame_mutex.acquire();
             if (AppMain.videoFrames.size() > 0) {
-                frame = AppMain.videoFrames.firstElement();
+                FrameBuffer temp = AppMain.videoFrames.firstElement();
+                frame = new FrameBuffer(temp.bytes, temp.getWidth(), temp.getHeight());
+                frame.setPts(temp.getPts());
                 AppMain.videoFrames.remove(0);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            this.mutex.release();
+            AppMain.frame_mutex.release();
         }
 
         if (frame == null) {
             return;
         }
 
-        if (default_width != frame.buffer.getWidth() || default_height != frame.buffer.getHeight()) {
-            default_width = src_w = frame.buffer.getWidth();
-            default_height = src_h = frame.buffer.getHeight();
-            System.out.println("Changing sws_ctx: " + default_width+" "+default_height+" "+dst_w+" "+dst_h);
+        if (default_width != frame.getWidth() || default_height != frame.getHeight()) {
+            default_width = src_w = frame.getWidth();
+            default_height = src_h = frame.getHeight();
             sws_ctx = sws_getContext(src_w, src_h, src_pix_fmt,
                     dst_w, dst_h, dst_pix_fmt,
                     SWS_BILINEAR, null, null, (double[]) null);
-            System.out.println("Finished");
+            System.out.println("Image changed");
 
             if (sws_ctx.isNull()) {
                 System.out.println("Impossible to create scale context for the conversion " + "fmt:%s s:%dx%d -> fmt:%s s:%dx%d\n" + av_get_pix_fmt_name(this.src_pix_fmt) + this.src_w + this.src_h + av_get_pix_fmt_name(this.dst_pix_fmt) + this.dst_w + this.dst_h);
@@ -209,12 +229,9 @@ public class VideoConverter {
             }
         }
 
-        byte[] bytes = new byte[default_width * default_height * 4];
         try {
-            VideoBufferConverter.convertFromI420(frame.buffer, bytes, FourCC.BGRA);
-
             // Part-1
-            avpicture_fill(new AVPicture(picture), bytes, src_pix_fmt, default_width, default_height);
+            avpicture_fill(new AVPicture(picture), frame.bytes, src_pix_fmt, default_width, default_height);
             sws_scale(sws_ctx, picture.data(), picture.linesize(), 0, default_height, dst_data, dst_linesize);
 
             encodeFrame = av_frame_alloc();
@@ -228,9 +245,10 @@ public class VideoConverter {
             encodeFrame.height(c.height());
 
             avpicture_fill(new AVPicture(encodeFrame), new BytePointer(dst_data.get(0)), dst_pix_fmt, c.width(), c.height());
-            encodeFrame.pts(encodeIndex);
+            System.out.println("Send Frame pts: " + frame.getPts());
+            encodeFrame.pts(frame.getPts());
+//            encodeFrame.pts(encodeIndex);
             encodeIndex++;
-
             /* encode the image */
             int ret = avcodec_send_frame(c, encodeFrame);
             if (ret < 0) {
@@ -249,6 +267,11 @@ public class VideoConverter {
                 if (pkt.size() > 0) {
                     byte[] writeData = new byte[pkt.size()];
                     pkt.data().get(writeData, 0, pkt.size());
+
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    long current = timestamp.getTime();
+                    System.out.println("Convert:  pts :"+pkt.pts() + " dts:"+pkt.dts() + " flags:"+pkt.flags() + " duration:"+pkt.duration());
+
 //                    try {
 //                        FileOutputStream fos = null;
 //                        String filename = String.format("frame-%04d.h264", encodeIndex);
@@ -265,18 +288,12 @@ public class VideoConverter {
 
                     try {
                         this.mutex.acquire();
-                        AppMain.videoList.add(writeData);
+                        AppMain.videoList.add(new H264Packet(writeData, pkt.pts(), pkt.dts(), pkt.duration(), pkt.flags()));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } finally {
                         this.mutex.release();
                     }
-                }
-
-                try {
-                    Thread.sleep(10); // sleep in 10ms
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
                 av_packet_unref(pkt);
             }

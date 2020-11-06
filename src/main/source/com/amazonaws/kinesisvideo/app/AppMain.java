@@ -34,6 +34,7 @@ import dev.onvoid.webrtc.*;
 import dev.onvoid.webrtc.media.FourCC;
 import dev.onvoid.webrtc.media.MediaStream;
 import dev.onvoid.webrtc.media.MediaStreamTrack;
+import dev.onvoid.webrtc.media.MediaStreamTrackState;
 import dev.onvoid.webrtc.media.audio.AudioOptions;
 import dev.onvoid.webrtc.media.audio.AudioSource;
 import dev.onvoid.webrtc.media.audio.AudioTrack;
@@ -55,8 +56,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.ByteBuffer;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
@@ -74,7 +78,16 @@ import static org.bytedeco.ffmpeg.global.swscale.*;
  */
 public final class AppMain {
     // Use a different stream name when testing audio/video sample
+    private static final int FPS_10 = 10;
+    private static final int FPS_15 = 15;
+    private static final int FPS_20 = 20;
     private static final int FPS_25 = 25;
+    private static final int FPS_30 = 30;
+    private static final int FPS_60 = 60;
+    private static final long FRAME_DURATION = 40L;
+    private static int frameRate = FPS_25;
+    private static final int FRAME_WIDTH = 1280;
+    private static final int FRAME_HEIGHT = 720;
     private static final int RETENTION_ONE_HOUR = 1;
     private static final String IMAGE_DIR = "src/main/resources/data/h264/";
     private static final String FRAME_DIR = "src/main/resources/data/audio-video-frames";
@@ -106,15 +119,22 @@ public final class AppMain {
     public static VideoConverter videoConverter = null;
 
     public static VideoFrame videoFrame = null;
-    public static Vector<VideoFrame> videoFrames = new Vector<>();
+    public static FrameBuffer frameBuffer = null;
+    public static Vector<FrameBuffer> videoFrames = new Vector<>();
 
     public static FileOutputStream fos = null;
     public static Semaphore mutex = new Semaphore(1);
-    public static Vector<byte[]> videoList = new Vector<byte[]>();
+    public static Semaphore frame_mutex = new Semaphore(1);
+    public static long firstPickTime = 0;
+    public static Vector<H264Packet> videoList = new Vector<>();
+    public static Vector<Integer> videoListKeyFlags = new Vector<>();
+    public static ExecutorService executor = Executors.newFixedThreadPool(1);
     public static boolean isInit = false;
 
     public static String kvsStream = System.getProperty("kvs-stream");
     public static String kvsChannel = System.getProperty("kvs-channel");
+
+    public static long encodeIndex = 0;
 
     private AppMain() {
         throw new UnsupportedOperationException();
@@ -380,11 +400,14 @@ public final class AppMain {
     private static void publishFrame(VideoFrame frame) {
         // FFMPEG
         if (!isInit) {
-            videoConverter = new VideoConverter(mutex, frame.buffer.getWidth(), frame.buffer.getHeight());
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            firstPickTime = timestamp.getTime();
+            startVideoFrames();
+            videoConverter = new VideoConverter(mutex, FRAME_WIDTH, FRAME_HEIGHT, frameRate);
             int ret = videoConverter.init();
             if (ret == 0) {
                 videoConverter.start();
-                System.out.print("VideoConverter Init");
+                System.out.println("VideoConverter Init");
             } else {
                 System.out.println("Failed the init video converter");
                 videoConverter.stop();
@@ -393,14 +416,78 @@ public final class AppMain {
             isInit = true;
         }
 
+        VideoFrameBuffer buf = null;
+        int w = 0, h = 0;
         try {
-            mutex.acquire();
-            videoFrames.add(frame);
-        } catch (InterruptedException e) {
+            buf = frame.buffer;
+            w = frame.buffer.getWidth();
+            h = frame.buffer.getHeight();
+            byte[] bytes = new byte[w * h * 4];
+            VideoBufferConverter.convertFromI420(buf, bytes, FourCC.BGRA);
+            frame_mutex.acquire();
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            long current = timestamp.getTime();
+            System.out.println("Publish Frame: "+current);
+            frameBuffer = new FrameBuffer(bytes, w, h);
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            mutex.release();
+            frame_mutex.release();
         }
+    }
+
+    private static void startVideoFrames() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    long current = timestamp.getTime();
+                    if (firstPickTime + FRAME_DURATION < current) {
+                        firstPickTime = current - (current  % FRAME_DURATION);
+                        try {
+                            frame_mutex.acquire();
+                            if (frameBuffer != null) {
+                                FrameBuffer tmpBuffer = new FrameBuffer(frameBuffer.bytes, frameBuffer.getWidth(), frameBuffer.getHeight());
+                                tmpBuffer.setPts(firstPickTime);
+                                videoFrames.add(tmpBuffer);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            frame_mutex.release();
+                        }
+                    }
+                    try {
+                        Thread.sleep(10); // sleep in 10ms
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    private static int getFps(int count, long start, long end) {
+        long space = end - start;
+        int fps = (int) (count / (space / 1000));
+        int result;
+
+        if (fps <= FPS_10) {
+            result = FPS_10;
+        } else if (fps <= FPS_15) {
+            result = FPS_15;
+        } else if (fps <= FPS_20) {
+            result = FPS_20;
+        } else if (fps <= FPS_25) {
+            result = FPS_25;
+        } else if (fps <= FPS_30 +  5) {
+            result = FPS_30;
+        } else {
+            result = FPS_60;
+        }
+
+        return result;
     }
 
     private static void addVideo(RTCRtpTransceiverDirection direction) {
@@ -509,7 +596,7 @@ public final class AppMain {
     private static MediaSource createImageFileMediaSource() {
         final ImageFileMediaSourceConfiguration configuration =
                 new ImageFileMediaSourceConfiguration.Builder()
-                        .fps(FPS_25)
+                        .fps(frameRate)
                         .dir(IMAGE_DIR)
                         .filenameFormat(IMAGE_FILENAME_FORMAT)
                         .startFileIndex(START_FILE_INDEX)

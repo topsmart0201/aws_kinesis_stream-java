@@ -1,5 +1,6 @@
 package com.amazonaws.kinesisvideo.java.mediasource.file;
 
+import com.amazonaws.kinesisvideo.app.H264Packet;
 import com.amazonaws.kinesisvideo.common.exception.KinesisVideoException;
 import com.amazonaws.kinesisvideo.common.preconditions.Preconditions;
 import com.amazonaws.kinesisvideo.app.AppMain;
@@ -8,6 +9,7 @@ import com.amazonaws.kinesisvideo.internal.mediasource.OnStreamDataAvailable;
 import com.amazonaws.kinesisvideo.producer.KinesisVideoFrame;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.bytedeco.flycapture.FlyCapture2.H264Option;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.io.FileNotFoundException;
@@ -32,6 +34,7 @@ import static com.amazonaws.kinesisvideo.producer.Time.HUNDREDS_OF_NANOS_IN_A_MI
 public class ImageFrameSource {
     public static final int METADATA_INTERVAL = 8;
     private static final long FRAME_DURATION_20_MS = 20L;
+    private static long FRAME_DURATION = 0;
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
     private final int fps;
     private final ImageFileMediaSourceConfiguration configuration;
@@ -48,6 +51,7 @@ public class ImageFrameSource {
         this.configuration = configuration;
         this.totalFiles = getTotalFiles(configuration.getStartFileIndex(), configuration.getEndFileIndex());
         this.fps = configuration.getFps();
+        FRAME_DURATION = 1000L / this.fps / 2;
     }
 
     private int getTotalFiles(final int startIndex, final int endIndex) {
@@ -101,7 +105,7 @@ public class ImageFrameSource {
             }
 
             try {
-                Thread.sleep(Duration.ofSeconds(1L).toMillis() / fps);
+                Thread.sleep(10);
             } catch (final InterruptedException e) {
                 log.error("Frame interval wait interrupted by Exception ", e);
             }
@@ -117,14 +121,14 @@ public class ImageFrameSource {
 
         final int flags = isKeyFrame() ? FRAME_FLAG_KEY_FRAME : FRAME_FLAG_NONE;
 
-        byte[] data = null;
+        H264Packet pkt = null;
         try {
             AppMain.mutex.acquire();
             if (AppMain.videoList.size() > 0) {
-                data = AppMain.videoList.firstElement();
+                pkt = AppMain.videoList.firstElement();
                 AppMain.videoList.remove(0);
             }
-            else if (AppMain.videoList.size() == 0 || data == null) {
+            else {
                 AppMain.mutex.release();
                 return null;
             }
@@ -136,15 +140,17 @@ public class ImageFrameSource {
 
         return new KinesisVideoFrame(
                 frameCounter,
-                flags,
-                currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
-                currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
-                FRAME_DURATION_20_MS * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
-                ByteBuffer.wrap(data));
+                pkt.getFlags(),
+                pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
+                pkt.getPts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
+//                currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
+//                currentTimeMs * HUNDREDS_OF_NANOS_IN_A_MILLISECOND,
+                FRAME_DURATION_20_MS * HUNDREDS_OF_NANOS_IN_A_MILLISECOND * 2,
+                ByteBuffer.wrap(pkt.bytes));
     }
 
     private boolean isKeyFrame() {
-        return frameCounter % 25 == 0;
+        return frameCounter % this.fps == 0;
     }
 
 
