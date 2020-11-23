@@ -11,3 +11,4 @@ cm-file
 target
 out
 *.log
+build.jar

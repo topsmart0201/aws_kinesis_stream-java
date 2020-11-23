@@ -20,7 +20,7 @@ public abstract class SignalingListener implements Signaling {
             if (!message.isEmpty() && message.contains("messagePayload")) {
 
                 Event evt = gson.fromJson(message, Event.class);
-                System.out.println("EVT:" + evt.getMessageType());
+//                System.out.println("EVT:" + evt.getMessageType());
 
                 if(evt != null && evt.getMessageType() != null && !evt.getMessagePayload().isEmpty()){
 
@@ -50,6 +50,7 @@ public abstract class SignalingListener implements Signaling {
 
                         onIceCandidate(evt);
                     }
+
                 }
             }
 

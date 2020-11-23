@@ -269,7 +269,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
                 .withDataRetentionInHours((int) retentionPeriodInHours)
                 .withTags(null);
 
-        log.debug("calling create stream: " + createStreamRequest.toString());
+//        log.debug("calling create stream: " + createStreamRequest.toString());
 
         final CreateStreamResult createStreamResult;
         try {
@@ -280,7 +280,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
             throw new KinesisVideoException(e);
         }
 
-        log.debug("create stream result: " + createStreamResult.toString());
+//        log.debug("create stream result: " + createStreamResult.toString());
 
         return createStreamResult.getStreamARN();
     }
@@ -298,7 +298,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
         final DescribeStreamRequest describeStreamRequest = new DescribeStreamRequest()
                 .withStreamName(streamName);
 
-        log.debug("calling describe stream: " + describeStreamRequest.toString());
+//        log.debug("calling describe stream: " + describeStreamRequest.toString());
 
         final DescribeStreamResult describeStreamResult;
         try {
@@ -313,7 +313,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
             return null;
         }
 
-        log.debug("describe stream result: " + describeStreamResult.toString());
+//        log.debug("describe stream result: " + describeStreamResult.toString());
         return toStreamDescription(describeStreamResult);
     }
 
@@ -334,7 +334,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
                 .withStreamARN(streamDescription.getStreamArn())
                 .withCurrentVersion(streamDescription.getUpdateVersion());
 
-        log.debug("calling delete stream: " + deleteStreamRequest.toString());
+//        log.debug("calling delete stream: " + deleteStreamRequest.toString());
 
         final DeleteStreamResult deleteStreamResult;
         try {
@@ -344,7 +344,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
             throw new KinesisVideoException(e);
         }
 
-        log.debug("delete stream result: " + deleteStreamResult.toString());
+//        log.debug("delete stream result: " + deleteStreamResult.toString());
     }
 
     @Override
@@ -362,7 +362,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
                 .withStreamARN(streamArn)
                 .withTags(tags);
 
-        log.debug("calling tag resource: " + tagStreamRequest.toString());
+//        log.debug("calling tag resource: " + tagStreamRequest.toString());
 
         final TagStreamResult tagStreamResult;
         try {
@@ -372,7 +372,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
             throw new KinesisVideoException(e);
         }
 
-        log.debug("tag resource result: " + tagStreamResult.toString());
+//        log.debug("tag resource result: " + tagStreamResult.toString());
     }
 
     @Override
@@ -390,7 +390,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
                 .withStreamName(streamName)
                 .withAPIName(apiName);
 
-        log.debug("calling get data endpoint: " + getDataEndpointRequest.toString());
+//        log.debug("calling get data endpoint: " + getDataEndpointRequest.toString());
 
         final GetDataEndpointResult getDataEndpointResult;
 
@@ -401,7 +401,7 @@ public final class JavaKinesisVideoServiceClient implements KinesisVideoServiceC
             throw new KinesisVideoException(e);
         }
 
-        log.debug("get data endpoint result: " + getDataEndpointResult.toString());
+//        log.debug("get data endpoint result: " + getDataEndpointResult.toString());
 
         return getDataEndpointResult.getDataEndpoint();
     }

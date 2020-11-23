@@ -36,14 +36,23 @@ public class SignalingServiceWebSocketClient {
         return websocketClient.isOpen();
     }
 
+    public void sendStreamStart(final Message offer) {
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                if (offer.getAction().equalsIgnoreCase("STREAM_START")) {
+                    send(offer);
+                }
+            }
+        });
+    }
+
     public void sendSdpOffer(final Message offer) {
         executorService.submit(new Runnable() {
             @Override
             public void run() {
                 if (offer.getAction().equalsIgnoreCase("SDP_OFFER")) {
-
 //                    Log.d(TAG, "Sending Offer");
-
                     send(offer);
                 }
             }
@@ -55,10 +64,8 @@ public class SignalingServiceWebSocketClient {
             @Override
             public void run() {
                 if (answer.getAction().equalsIgnoreCase("SDP_ANSWER")) {
-
 //                    Log.d(TAG, "Answer sent " + new String(Base64.decode(answer.getMessagePayload().getBytes(),
 //                            Base64.NO_WRAP | Base64.NO_PADDING | Base64.URL_SAFE)));
-
                     send(answer);
                 }
             }

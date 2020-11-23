@@ -4,22 +4,24 @@ import com.amazonaws.kinesisvideo.app.H264Packet;
 import com.amazonaws.kinesisvideo.common.exception.KinesisVideoException;
 import com.amazonaws.kinesisvideo.common.preconditions.Preconditions;
 import com.amazonaws.kinesisvideo.app.AppMain;
+import com.amazonaws.kinesisvideo.app.Test;
 import com.amazonaws.kinesisvideo.internal.mediasource.OnStreamDataAvailable;
 
 import com.amazonaws.kinesisvideo.producer.KinesisVideoFrame;
+import com.amazonaws.kinesisvideo.signaling.model.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.bytedeco.flycapture.FlyCapture2.H264Option;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
+import java.util.Base64;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,6 +48,8 @@ public class ImageFrameSource {
     private final Log log = LogFactory.getLog(ImageFrameSource.class);
     private final String metadataName = "ImageLoop";
     private int metadataCount = 0;
+    private static int encodeIndex = 0;
+    private static boolean output = true;
 
     public ImageFrameSource(final ImageFileMediaSourceConfiguration configuration) {
         this.configuration = configuration;
@@ -123,20 +127,77 @@ public class ImageFrameSource {
 
         H264Packet pkt = null;
         try {
-            AppMain.mutex.acquire();
-            if (AppMain.videoList.size() > 0) {
-                pkt = AppMain.videoList.firstElement();
-                AppMain.videoList.remove(0);
+            Test.mutex.acquire();
+            if (Test.videoList.size() > 0) {
+                pkt = Test.videoList.firstElement();
+                Test.videoList.remove(0);
             }
             else {
-                AppMain.mutex.release();
+                Test.mutex.release();
                 return null;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        AppMain.mutex.release();
+        Test.mutex.release();
+
+        if (encodeIndex == 0) {
+            String messagePayload =
+                    "{\"type\":\""
+                            + "streamStart"
+                            + "\"}";
+            Message message = new Message("SDP_OFFER", Test.recipientClientId, Test.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
+            Test.client.sendSdpOffer(message);
+
+            encodeIndex = 1;
+        }
+
+        if (Test.receiveStartExamSignal) {
+            Test.startStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+
+            Test.receiveStartExamSignal = false;
+        }
+
+        if (Test.receiveSecondExamSignal) {
+            Test.secondStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+
+            Test.receiveSecondExamSignal = false;
+        }
+
+        if (Test.receiveThirdExamSignal) {
+            Test.thirdStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+
+            Test.receiveThirdExamSignal = false;
+        }
+
+        if (Test.receiveFourthExamSignal) {
+            Test.fourthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+
+            Test.receiveFourthExamSignal = false;
+        }
+
+        if (Test.receiveEndExamSignal) {
+            Test.endStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+
+            System.out.println(Test.startStreamTime + "::::" + Test.endStreamTime);
+            String messagePayload =
+                    "{"
+                            + "\"type\": \"streamEnd\","
+                            + "\"startTime\":" + Test.startStreamTime + ","
+                            + "\"secondTime\":" + Test.secondStreamTime + ","
+                            + "\"thirdTime\":" + Test.thirdStreamTime + ","
+                            + "\"fourthTime\":" + Test.fourthStreamTime + ","
+                            + "\"endTime\":" + Test.endStreamTime
+                            + "}";
+            Message message = new Message("SDP_OFFER", Test.recipientClientId, Test.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
+            Test.client.sendSdpOffer(message);
+
+            Test.receiveEndExamSignal = false;
+            output = false;
+
+            System.out.println("------------------------------------------------------------");
+        }
 
         return new KinesisVideoFrame(
                 frameCounter,
@@ -152,7 +213,6 @@ public class ImageFrameSource {
     private boolean isKeyFrame() {
         return frameCounter % this.fps == 0;
     }
-
 
     private void stopFrameGenerator() {
         executor.shutdown();

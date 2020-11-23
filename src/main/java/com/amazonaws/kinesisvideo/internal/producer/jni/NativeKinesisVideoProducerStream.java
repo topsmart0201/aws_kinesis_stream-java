@@ -95,8 +95,8 @@ public class NativeKinesisVideoProducerStream implements KinesisVideoProducerStr
                 try {
                     mKinesisVideoProducerJni.getStreamData(mStreamHandle, mUploadHandle, b, off, len, mReadResult);
                     bytesRead = mReadResult.getReadBytes();
-                    mLog.debug("getStreamData fill %d bytes for stream %s with uploadHandle %d", bytesRead,
-                            mStreamInfo.getName(), mUploadHandle);
+//                    mLog.debug("getStreamData fill %d bytes for stream %s with uploadHandle %d", bytesRead,
+//                            mStreamInfo.getName(), mUploadHandle);
 
                     if (mReadResult.isEndOfStream()) {
                         // EOS for current session
@@ -129,8 +129,8 @@ public class NativeKinesisVideoProducerStream implements KinesisVideoProducerStr
                 }
             }
 
-            mLog.debug("Streamed %d bytes for stream %s with uploadHandle %d", bytesRead, mStreamInfo.getName(),
-                    mUploadHandle);
+//            mLog.debug("Streamed %d bytes for stream %s with uploadHandle %d", bytesRead, mStreamInfo.getName(),
+//                    mUploadHandle);
 
             if (-1 == bytesRead) {
                 mLog.debug("Closing stream %s with uploadHandle %d", mStreamInfo.getName(), mUploadHandle);
@@ -161,8 +161,8 @@ public class NativeKinesisVideoProducerStream implements KinesisVideoProducerStr
             // Unblock the awaiting reading code block
             synchronized (mMonitor) {
                 mAvailableDataSize = availableSize;
-                mLog.debug("Data availability notification. Upload handle: %d, Size: %d, Duration %d ",
-                        mUploadHandle, availableSize, duration);
+//                mLog.debug("Data availability notification. Upload handle: %d, Size: %d, Duration %d ",
+//                        mUploadHandle, availableSize, duration);
 
                 mDataAvailable = true;
 
@@ -230,43 +230,43 @@ public class NativeKinesisVideoProducerStream implements KinesisVideoProducerStr
         Preconditions.checkNotNull(kinesisVideoFrame);
         Preconditions.checkState(mStreamHandle != NativeKinesisVideoProducerJni.INVALID_STREAM_HANDLE_VALUE);
 
-        mLog.debug("PutFrame index: %s, pts: %s, dts: %s, duration: %s, keyFrame: %s, track: %s",
-                kinesisVideoFrame.getIndex(),
-                kinesisVideoFrame.getPresentationTs(),
-                kinesisVideoFrame.getDecodingTs(),
-                kinesisVideoFrame.getDuration(),
-                FrameFlags.isKeyFrame(kinesisVideoFrame.getFlags()),
-                kinesisVideoFrame.getTrackId());
+//        mLog.debug("PutFrame index: %s, pts: %s, dts: %s, duration: %s, keyFrame: %s, track: %s",
+//                kinesisVideoFrame.getIndex(),
+//                kinesisVideoFrame.getPresentationTs(),
+//                kinesisVideoFrame.getDecodingTs(),
+//                kinesisVideoFrame.getDuration(),
+//                FrameFlags.isKeyFrame(kinesisVideoFrame.getFlags()),
+//                kinesisVideoFrame.getTrackId());
 
         // Print out metrics on every key-frame
         if (FrameFlags.isKeyFrame(kinesisVideoFrame.getFlags())) {
             final KinesisVideoMetrics kinesisVideoMetrics = mKinesisVideoProducerJni.getMetrics();
             final KinesisVideoStreamMetrics streamMetrics = getMetrics();
-            mLog.debug("Kinesis Video client and stream metrics"
-                            + "\n\t>> Overall storage size: %s"
-                            + "\n\t>> Available storage size: %s"
-                            + "\n\t>> Allocated storage size: %s"
-                            + "\n\t>> Total view allocation size: %s"
-                            + "\n\t>> Total streams frame rate: %s"
-                            + "\n\t>> Total streams transfer rate: %s"
-                            + "\n\t>> Current view duration: %s"
-                            + "\n\t>> Overall view duration: %s"
-                            + "\n\t>> Current view size: %s"
-                            + "\n\t>> Overall view size: %s"
-                            + "\n\t>> Current frame rate: %s"
-                            + "\n\t>> Current transfer rate: %s",
-                    kinesisVideoMetrics.getContentStoreSize(),
-                    kinesisVideoMetrics.getContentStoreAvailableSize(),
-                    kinesisVideoMetrics.getContentStoreAllocatedSize(),
-                    kinesisVideoMetrics.getTotalContentViewSize(),
-                    kinesisVideoMetrics.getTotalFrameRate(),
-                    kinesisVideoMetrics.getTotalTransferRate(),
-                    streamMetrics.getCurrentViewDurationInTimeUnits(),
-                    streamMetrics.getOverallViewDurationInTimeUnits(),
-                    streamMetrics.getCurrentViewSize(),
-                    streamMetrics.getOverallViewSize(),
-                    streamMetrics.getCurrentFrameRate(),
-                    streamMetrics.getCurrentTransferRate());
+//            mLog.debug("Kinesis Video client and stream metrics"
+//                            + "\n\t>> Overall storage size: %s"
+//                            + "\n\t>> Available storage size: %s"
+//                            + "\n\t>> Allocated storage size: %s"
+//                            + "\n\t>> Total view allocation size: %s"
+//                            + "\n\t>> Total streams frame rate: %s"
+//                            + "\n\t>> Total streams transfer rate: %s"
+//                            + "\n\t>> Current view duration: %s"
+//                            + "\n\t>> Overall view duration: %s"
+//                            + "\n\t>> Current view size: %s"
+//                            + "\n\t>> Overall view size: %s"
+//                            + "\n\t>> Current frame rate: %s"
+//                            + "\n\t>> Current transfer rate: %s",
+//                    kinesisVideoMetrics.getContentStoreSize(),
+//                    kinesisVideoMetrics.getContentStoreAvailableSize(),
+//                    kinesisVideoMetrics.getContentStoreAllocatedSize(),
+//                    kinesisVideoMetrics.getTotalContentViewSize(),
+//                    kinesisVideoMetrics.getTotalFrameRate(),
+//                    kinesisVideoMetrics.getTotalTransferRate(),
+//                    streamMetrics.getCurrentViewDurationInTimeUnits(),
+//                    streamMetrics.getOverallViewDurationInTimeUnits(),
+//                    streamMetrics.getCurrentViewSize(),
+//                    streamMetrics.getOverallViewSize(),
+//                    streamMetrics.getCurrentFrameRate(),
+//                    streamMetrics.getCurrentTransferRate());
         }
 
         mKinesisVideoProducerJni.putFrame(mStreamHandle, kinesisVideoFrame);

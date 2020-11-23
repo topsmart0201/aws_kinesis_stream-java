@@ -71,7 +71,6 @@ class WebSocketClient {
             @Override
             public void run() {
                 try {
-//                    session = (Session) clientManager.connectToServer(endpoint, new URI(uri));
                     session = clientManager.connectToServer(endpoint, cec, new URI(uri));
                 } catch (URISyntaxException e) {
                     e.printStackTrace();

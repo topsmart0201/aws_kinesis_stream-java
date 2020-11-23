@@ -1,10 +1,16 @@
 package com.amazonaws.kinesisvideo.app;
 
+import com.amazonaws.kinesisvideo.signaling.model.Message;
 import dev.onvoid.webrtc.media.FourCC;
 import dev.onvoid.webrtc.media.video.VideoBufferConverter;
 import dev.onvoid.webrtc.media.video.VideoFrame;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.client.entity.EntityBuilder;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ContentType;
 import org.bytedeco.ffmpeg.avcodec.AVCodec;
 import org.bytedeco.ffmpeg.avcodec.AVCodecContext;
 import org.bytedeco.ffmpeg.avcodec.AVPacket;
@@ -17,14 +23,22 @@ import org.bytedeco.javacpp.IntPointer;
 import org.bytedeco.javacpp.Pointer;
 import org.bytedeco.javacpp.PointerPointer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.util.Base64;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static com.amazonaws.kinesisvideo.producer.Time.HUNDREDS_OF_NANOS_IN_A_MILLISECOND;
 import static org.bytedeco.ffmpeg.global.avcodec.*;
 import static org.bytedeco.ffmpeg.global.avcodec.avcodec_open2;
 import static org.bytedeco.ffmpeg.global.avformat.av_register_all;
@@ -59,7 +73,6 @@ public class VideoConverter {
     private int fps;
 
     public static int MAX_LIST_SIZE = 30;
-
 
     public VideoConverter(Semaphore mutex, int width, int height, int fps, int src_pix_fmt, int dst_pix_fmt) {
         this.mutex = mutex;
@@ -166,6 +179,7 @@ public class VideoConverter {
             @Override
             public void run() {
                 System.out.println("Video Converter Start");
+
                 while (isRunning) {
                     convert();
                 }
@@ -184,10 +198,11 @@ public class VideoConverter {
     }
 
     public void convert() {
-        if (AppMain.videoList.size() >= MAX_LIST_SIZE) {
+        //Replace AppMain to Test
+        if (Test.videoList.size() >= MAX_LIST_SIZE) {
 //            System.out.println("The count of frame list is more than " + MAX_LIST_SIZE);
             return;
-        }else if (AppMain.videoFrames.size() == 0){
+        } else if (Test.videoFrames.size() == 0){
             try {
                 Thread.sleep(10); // sleep in 10ms
             } catch (InterruptedException e) {
@@ -198,17 +213,17 @@ public class VideoConverter {
 
         FrameBuffer frame = null;
         try {
-            AppMain.frame_mutex.acquire();
-            if (AppMain.videoFrames.size() > 0) {
-                FrameBuffer temp = AppMain.videoFrames.firstElement();
+            Test.frame_mutex.acquire();
+            if (Test.videoFrames.size() > 0) {
+                FrameBuffer temp = Test.videoFrames.firstElement();
                 frame = new FrameBuffer(temp.bytes, temp.getWidth(), temp.getHeight());
                 frame.setPts(temp.getPts());
-                AppMain.videoFrames.remove(0);
+                Test.videoFrames.remove(0);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            AppMain.frame_mutex.release();
+            Test.frame_mutex.release();
         }
 
         if (frame == null) {
@@ -245,7 +260,7 @@ public class VideoConverter {
             encodeFrame.height(c.height());
 
             avpicture_fill(new AVPicture(encodeFrame), new BytePointer(dst_data.get(0)), dst_pix_fmt, c.width(), c.height());
-            System.out.println("Send Frame pts: " + frame.getPts());
+//            System.out.println("Send Frame pts: " + frame.getPts());
             encodeFrame.pts(frame.getPts());
 //            encodeFrame.pts(encodeIndex);
             encodeIndex++;
@@ -270,7 +285,7 @@ public class VideoConverter {
 
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     long current = timestamp.getTime();
-                    System.out.println("Convert:  pts :"+pkt.pts() + " dts:"+pkt.dts() + " flags:"+pkt.flags() + " duration:"+pkt.duration());
+//                    System.out.println("Convert:  pts :"+pkt.pts() + " dts:"+pkt.dts() + " flags:"+pkt.flags() + " duration:"+pkt.duration());
 
 //                    try {
 //                        FileOutputStream fos = null;
@@ -288,7 +303,7 @@ public class VideoConverter {
 
                     try {
                         this.mutex.acquire();
-                        AppMain.videoList.add(new H264Packet(writeData, pkt.pts(), pkt.dts(), pkt.duration(), pkt.flags()));
+                        Test.videoList.add(new H264Packet(writeData, pkt.pts(), pkt.dts(), pkt.duration(), pkt.flags()));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } finally {
