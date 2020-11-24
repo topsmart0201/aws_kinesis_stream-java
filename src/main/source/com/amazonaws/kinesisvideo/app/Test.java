@@ -205,9 +205,7 @@ public final class Test {
 
             @Override
             public void onSdpOffer(final Event offerEvent) {
-                System.out.println("+++++++++++++++++++" + offerEvent);
 //                System.out.println("Received SDP Offer: Setting Remote Description ");
-
                 String s = new String(Base64.getDecoder().decode(offerEvent.getMessagePayload()));
                 JsonObject jsonObject = new JsonParser().parse(s).getAsJsonObject();
                 if (jsonObject.get("type").getAsString().equals("examFinish")) {
