@@ -177,6 +177,12 @@ public class ImageFrameSource {
             Test.receiveFourthExamSignal = false;
         }
 
+        if (Test.receiveFifthExamSignal) {
+            Test.fifthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+
+            Test.receiveFifthExamSignal = false;
+        }
+
         if (Test.receiveEndExamSignal) {
             Test.endStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
@@ -188,6 +194,7 @@ public class ImageFrameSource {
                             + "\"secondTime\":" + Test.secondStreamTime + ","
                             + "\"thirdTime\":" + Test.thirdStreamTime + ","
                             + "\"fourthTime\":" + Test.fourthStreamTime + ","
+                            + "\"fifthTime\":" + Test.fifthStreamTime + ","
                             + "\"endTime\":" + Test.endStreamTime
                             + "}";
             Message message = new Message("SDP_OFFER", Test.recipientClientId, Test.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));

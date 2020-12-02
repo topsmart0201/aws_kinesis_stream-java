@@ -88,7 +88,7 @@ public final class Test {
     public static String sessionID = "";
     public static String email = "";
     public static long startStreamTime = 0;
-    public static long endStreamTime = 0, secondStreamTime = 0, thirdStreamTime = 0, fourthStreamTime = 0;
+    public static long endStreamTime = 0, secondStreamTime = 0, thirdStreamTime = 0, fourthStreamTime = 0, fifthStreamTime = 0;
 
     public static volatile SignalingServiceWebSocketClient client;
     private static final String DEFAULT_REGION = System.getProperty("aws.region");
@@ -122,7 +122,7 @@ public final class Test {
     public static Vector<FrameBuffer> videoFrames = new Vector<>();
 
     public static Vector<H264Packet> videoList = new Vector<>();
-    public static boolean receiveEndExamSignal = false, receiveStartExamSignal = false, receiveSecondExamSignal = false, receiveThirdExamSignal = false, receiveFourthExamSignal = false;
+    public static boolean receiveEndExamSignal = false, receiveStartExamSignal = false, receiveSecondExamSignal = false, receiveThirdExamSignal = false, receiveFourthExamSignal = false, receiveFifthExamSignal = false;
 
     public Test(String channelName, String streamName, String sessionId, String email) {
         this.kvsChannel = channelName;
@@ -222,6 +222,9 @@ public final class Test {
                     return;
                 } else if (jsonObject.get("type").getAsString().equals("examFourth")) {
                     receiveFourthExamSignal = true;
+                    return;
+                } else if (jsonObject.get("type").getAsString().equals("examFifth")) {
+                    receiveFifthExamSignal = true;
                     return;
                 }
 
