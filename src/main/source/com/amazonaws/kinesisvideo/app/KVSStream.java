@@ -94,7 +94,7 @@ public final class KVSStream {
     public static Vector<H264Packet> videoList = new Vector<>();
     public static boolean receiveEndExamSignal = false, receiveStartExamSignal = false, receiveSecondExamSignal = false, receiveThirdExamSignal = false, receiveFourthExamSignal = false, receiveFifthExamSignal = false;
 
-    public static final MediaSource mediaSource = null;
+    public static MediaSource mediaSource = null;
 
     public KVSStream(String channelName, String streamName, String sessionId, String email) {
         this.kvsChannel = channelName;
