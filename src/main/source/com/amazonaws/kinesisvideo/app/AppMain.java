@@ -48,7 +48,7 @@ public final class AppMain {
 
         while(true) {
             System.out.println("Uninitialize");
-             if (!isInitialize) {
+            if (!isInitialize) {
                 sqsMessages = sqs.receiveMessage(receiveMessageRequest).getMessages();
                 for (int i = 0; i < sqsMessages.size(); i ++) {
                     String strMessage = sqsMessages.get(i).getBody();
@@ -66,10 +66,10 @@ public final class AppMain {
                     kvsstream.init();
                     isInitialize = true;
                     break;
-                 }
+                }
             }
-             if (isInitialize)
-                 break;
+            if (isInitialize)
+                break;
         }
     }
 }

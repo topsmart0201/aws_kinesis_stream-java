@@ -94,6 +94,8 @@ public final class KVSStream {
     public static Vector<H264Packet> videoList = new Vector<>();
     public static boolean receiveEndExamSignal = false, receiveStartExamSignal = false, receiveSecondExamSignal = false, receiveThirdExamSignal = false, receiveFourthExamSignal = false, receiveFifthExamSignal = false;
 
+    public static final MediaSource mediaSource = null;
+
     public KVSStream(String channelName, String streamName, String sessionId, String email) {
         this.kvsChannel = channelName;
         this.kvsStream = streamName;
@@ -492,7 +494,7 @@ public final class KVSStream {
                             Regions.US_EAST_1,
                             new ProfileCredentialsProvider());
 
-            final MediaSource mediaSource = createImageFileMediaSource();
+            mediaSource = createImageFileMediaSource();
             kinesisVideoClient.registerMediaSource(mediaSource);
             mediaSource.start();
         } catch (final KinesisVideoException e) {
@@ -507,18 +509,19 @@ public final class KVSStream {
         System.out.println("stopKinesisVideo");
         System.out.println("stopKinesisVideo");
 
-        try {
-            final KinesisVideoClient kinesisVideoClient = KinesisVideoJavaClientFactory
-                    .createKinesisVideoClient(
-                            Regions.US_EAST_1,
-                            new ProfileCredentialsProvider());
+        // try {
+        //     final KinesisVideoClient kinesisVideoClient = KinesisVideoJavaClientFactory
+        //             .createKinesisVideoClient(
+        //                     Regions.US_EAST_1,
+        //                     new ProfileCredentialsProvider());
 
-            final MediaSource mediaSource = createImageFileMediaSource();
-            kinesisVideoClient.registerMediaSource(mediaSource);
-            mediaSource.stop();
-        } catch (final KinesisVideoException e) {
-            throw new RuntimeException(e);
-        }
+        //     final MediaSource mediaSource = createImageFileMediaSource();
+        //     kinesisVideoClient.registerMediaSource(mediaSource);
+        //     mediaSource.stop();
+        // } catch (final KinesisVideoException e) {
+        //     throw new RuntimeException(e);
+        // }
+        mediaSource.stop();
     }
 
     /**
