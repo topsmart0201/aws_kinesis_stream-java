@@ -134,10 +134,10 @@ public class ImageFileMediaSource implements MediaSource {
 
     @Override
     public void start() throws KinesisVideoException {
-        mediaSourceState = MediaSourceState.RUNNING;
-        imageFrameSource = new ImageFrameSource(imageFileMediaSourceConfiguration);
-        imageFrameSource.onStreamDataAvailable(new DefaultOnStreamDataAvailable(mediaSourceSink));
-        imageFrameSource.start();
+         mediaSourceState = MediaSourceState.RUNNING;
+         imageFrameSource = new ImageFrameSource(imageFileMediaSourceConfiguration);
+         imageFrameSource.onStreamDataAvailable(new DefaultOnStreamDataAvailable(mediaSourceSink));
+         imageFrameSource.start();
     }
 
     @Override

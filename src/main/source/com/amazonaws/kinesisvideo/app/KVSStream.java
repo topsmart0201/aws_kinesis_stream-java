@@ -36,49 +36,19 @@ import dev.onvoid.webrtc.media.audio.AudioOptions;
 import dev.onvoid.webrtc.media.audio.AudioSource;
 import dev.onvoid.webrtc.media.audio.AudioTrack;
 import dev.onvoid.webrtc.media.video.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.bytedeco.ffmpeg.avcodec.AVCodec;
-import org.bytedeco.ffmpeg.avcodec.AVCodecContext;
-import org.bytedeco.ffmpeg.avcodec.AVPacket;
-import org.bytedeco.ffmpeg.avcodec.AVPicture;
-import org.bytedeco.ffmpeg.avutil.AVFrame;
-import org.bytedeco.ffmpeg.avutil.AVRational;
-import org.bytedeco.ffmpeg.swscale.SwsContext;
-import org.bytedeco.javacpp.BytePointer;
-import org.bytedeco.javacpp.IntPointer;
-import org.bytedeco.javacpp.Pointer;
-import org.bytedeco.javacpp.PointerPointer;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URI;
-import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static java.util.Objects.nonNull;
-import static org.bytedeco.ffmpeg.global.avcodec.*;
-import static org.bytedeco.ffmpeg.global.avcodec.avcodec_open2;
-import static org.bytedeco.ffmpeg.global.avformat.av_register_all;
-import static org.bytedeco.ffmpeg.global.avutil.*;
-import static org.bytedeco.ffmpeg.global.avutil.av_frame_alloc;
-import static org.bytedeco.ffmpeg.global.swscale.*;
 import java.util.concurrent.*;
 
-public final class Test {
-    private static final int FPS_10 = 10;
-    private static final int FPS_15 = 15;
-    private static final int FPS_20 = 20;
+public final class KVSStream {
     private static final int FPS_25 = 25;
-    private static final int FPS_30 = 30;
-    private static final int FPS_60 = 60;
 
     private static final String IMAGE_DIR = "src/main/resources/data/h264/";
-    private static final String FRAME_DIR = "src/main/resources/data/audio-video-frames";
     private static final String IMAGE_FILENAME_FORMAT = "frame-%04d.h264";
     private static final int START_FILE_INDEX = 23;
     private static final int END_FILE_INDEX = 9000;
@@ -124,7 +94,7 @@ public final class Test {
     public static Vector<H264Packet> videoList = new Vector<>();
     public static boolean receiveEndExamSignal = false, receiveStartExamSignal = false, receiveSecondExamSignal = false, receiveThirdExamSignal = false, receiveFourthExamSignal = false, receiveFifthExamSignal = false;
 
-    public Test(String channelName, String streamName, String sessionId, String email) {
+    public KVSStream(String channelName, String streamName, String sessionId, String email) {
         this.kvsChannel = channelName;
         this.kvsStream = streamName;
         this.sessionID = sessionId;
@@ -157,7 +127,7 @@ public final class Test {
         GetSignalingChannelEndpointRequest request = new GetSignalingChannelEndpointRequest();
         request.setChannelARN(descResult.getChannelInfo().getChannelARN());
         request.setSingleMasterChannelEndpointConfiguration(configuration);
-//        System.out.println(descResult.getChannelInfo().getChannelARN());
+
         try {
             final GetSignalingChannelEndpointResult result = kinesis_client.getSignalingChannelEndpoint(request);
             mEndpointList.addAll(result.getResourceEndpointList());
@@ -186,8 +156,6 @@ public final class Test {
                 mCreds.getAWSSecretKey(), mCreds instanceof AWSSessionCredentials ? ((AWSSessionCredentials)mCreds).getSessionToken() : "", URI.create(mWssEndpoint), DEFAULT_REGION);
 
         wsHost = signedUri.toString();
-//        System.out.println(httpsHost +" : "+ wsHost);
-
 
         AwsClientBuilder.EndpointConfiguration endpointConfiguration = new AwsClientBuilder.EndpointConfiguration(httpsHost, DEFAULT_REGION);
 
@@ -205,7 +173,6 @@ public final class Test {
 
             @Override
             public void onSdpOffer(final Event offerEvent) {
-//                System.out.println("Received SDP Offer: Setting Remote Description ");
                 String s = new String(Base64.getDecoder().decode(offerEvent.getMessagePayload()));
                 JsonObject jsonObject = new JsonParser().parse(s).getAsJsonObject();
                 if (jsonObject.get("type").getAsString().equals("examFinish")) {
@@ -230,83 +197,54 @@ public final class Test {
 
                 final String sdp = Event.parseOfferEvent(offerEvent);
 
-
-
-                localPeer.setRemoteDescription(new RTCSessionDescription(RTCSdpType.OFFER, sdp), new Test.SetSDObserver());
+                localPeer.setRemoteDescription(new RTCSessionDescription(RTCSdpType.OFFER, sdp), new KVSStream.SetSDObserver());
 
                 recipientClientId = offerEvent.getSenderClientId();
-
-//                System.out.println("Received SDP offer: Creating answer +++++++++++++++++++" + recipientClientId);
 
                 createSdpAnswer();
             }
 
             @Override
             public void onSdpAnswer(final Event answerEvent) {
-
-//                System.out.println("SDP answer received from signaling");
-
                 final String sdp = Event.parseSdpEvent(answerEvent);
 
                 final RTCSessionDescription sdpAnswer = new RTCSessionDescription(RTCSdpType.ANSWER, sdp);
 
-                localPeer.setRemoteDescription(sdpAnswer, new Test.SetSDObserver() {
-
+                localPeer.setRemoteDescription(sdpAnswer, new KVSStream.SetSDObserver() {
                     @Override
                     public void onSuccess() {
-//                        System.out.println("Success Remote Description");
                     }
-
                 });
             }
 
             @Override
             public void onIceCandidate(Event message) {
-
-//                System.out.println("Received IceCandidate from remote ");
-
                 final RTCIceCandidate iceCandidate = Event.parseIceCandidate(message);
 
                 if(iceCandidate != null) {
                     localPeer.addIceCandidate(iceCandidate);
-                } else {
-//                    System.out.println("Invalid Ice candidate");
-                }
+                } else {}
             }
 
             @Override
-            public void onError(Event errorMessage) {
-//                System.out.println("Received error message" + errorMessage);
-            }
+            public void onError(Event errorMessage) {}
 
             @Override
-            public void onException(Exception e) {
-//                System.out.println("Signaling client returned exception " + e.getMessage());
-            }
+            public void onException(Exception e) {}
         };
 
         if (wsHost != null) {
             try {
                 client = new SignalingServiceWebSocketClient(wsHost, signalingListener, Executors.newFixedThreadPool(10));
-
-//                System.out.println("Client connection " + (client.isOpen() ? "Successful" : "Failed"));
             } catch (Exception e) {
                 System.out.println(e);
             }
 
             if (isValidClient()) {
-
-//                System.out.println("Client connected to Signaling service " + client.isOpen());
-
                 if (true) {
-//                    System.out.println("Signaling service is connected: " +
-//                            "Sending offer as viewer to remote peer"); // Viewer
-
                     createSdpOffer();
                 }
-            } else {
-//                System.out.println("Error in connecting to signaling service");
-            }
+            } else {}
         }
     }
 
@@ -317,45 +255,32 @@ public final class Test {
     private static class CreateSDObserver implements CreateSessionDescriptionObserver {
         @Override
         public void onSuccess(RTCSessionDescription description) {
-//            System.out.println("CreateSessionDescriptionObserver: onSuccess");
             localPeer.setLocalDescription(description, new SetSDObserver() {
                 @Override
                 public void onSuccess() {
                     super.onSuccess();
-//                    System.out.println("CreateSessionDescriptionObserver: onSuccess");
                     try {
-
                         Message sdpOfferMessage = Message.createOfferMessage(description, mClientId);
-
                         if (isValidClient()) {
                             client.sendSdpOffer(sdpOfferMessage);
-                        } else {
-                        }
-                    } catch (Exception e) {
-//                        System.out.println("Send RTCSessionDescription failed" + e);
-                    }
+                        } else {}
+                    } catch (Exception e) {}
                 }
             });
         }
 
         @Override
-        public void onFailure(String error) {
-//            System.out.println("CreateSessionDescriptionObserver: onFailure");
-        }
+        public void onFailure(String error) {}
 
     }
 
     private static class SetSDObserver implements SetSessionDescriptionObserver {
 
         @Override
-        public void onSuccess() {
-//            System.out.println("SetSessionDescriptionObserver: onSuccess");
-        }
+        public void onSuccess() {}
 
         @Override
-        public void onFailure(String error) {
-//            System.out.println("SetSessionDescriptionObserver: onFailure");
-        }
+        public void onFailure(String error) {}
     }
 
     private static void createSdpOffer() {
@@ -420,9 +345,7 @@ public final class Test {
             int ret = videoConverter.init();
             if (ret == 0) {
                 videoConverter.start();
-//                System.out.println("VideoConverter Init");
             } else {
-//                System.out.println("Failed the init video converter");
                 videoConverter.stop();
                 System.exit(-1);
             }
@@ -478,28 +401,6 @@ public final class Test {
                 }
             }
         });
-    }
-
-    private static int getFps(int count, long start, long end) {
-        long space = end - start;
-        int fps = (int) (count / (space / 1000));
-        int result;
-
-        if (fps <= FPS_10) {
-            result = FPS_10;
-        } else if (fps <= FPS_15) {
-            result = FPS_15;
-        } else if (fps <= FPS_20) {
-            result = FPS_20;
-        } else if (fps <= FPS_25) {
-            result = FPS_25;
-        } else if (fps <= FPS_30 +  5) {
-            result = FPS_30;
-        } else {
-            result = FPS_60;
-        }
-
-        return result;
     }
 
     private static void addVideo(RTCRtpTransceiverDirection direction) {
@@ -594,6 +495,27 @@ public final class Test {
             final MediaSource mediaSource = createImageFileMediaSource();
             kinesisVideoClient.registerMediaSource(mediaSource);
             mediaSource.start();
+        } catch (final KinesisVideoException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void stopKinesisVideo() {
+        System.out.println("stopKinesisVideo");
+        System.out.println("stopKinesisVideo");
+        System.out.println("stopKinesisVideo");
+        System.out.println("stopKinesisVideo");
+        System.out.println("stopKinesisVideo");
+
+        try {
+            final KinesisVideoClient kinesisVideoClient = KinesisVideoJavaClientFactory
+                    .createKinesisVideoClient(
+                            Regions.US_EAST_1,
+                            new ProfileCredentialsProvider());
+
+            final MediaSource mediaSource = createImageFileMediaSource();
+            kinesisVideoClient.registerMediaSource(mediaSource);
+            mediaSource.stop();
         } catch (final KinesisVideoException e) {
             throw new RuntimeException(e);
         }

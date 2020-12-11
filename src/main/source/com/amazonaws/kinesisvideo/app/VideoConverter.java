@@ -199,10 +199,10 @@ public class VideoConverter {
 
     public void convert() {
         //Replace AppMain to Test
-        if (Test.videoList.size() >= MAX_LIST_SIZE) {
+        if (KVSStream.videoList.size() >= MAX_LIST_SIZE) {
 //            System.out.println("The count of frame list is more than " + MAX_LIST_SIZE);
             return;
-        } else if (Test.videoFrames.size() == 0){
+        } else if (KVSStream.videoFrames.size() == 0){
             try {
                 Thread.sleep(10); // sleep in 10ms
             } catch (InterruptedException e) {
@@ -213,17 +213,17 @@ public class VideoConverter {
 
         FrameBuffer frame = null;
         try {
-            Test.frame_mutex.acquire();
-            if (Test.videoFrames.size() > 0) {
-                FrameBuffer temp = Test.videoFrames.firstElement();
+            KVSStream.frame_mutex.acquire();
+            if (KVSStream.videoFrames.size() > 0) {
+                FrameBuffer temp = KVSStream.videoFrames.firstElement();
                 frame = new FrameBuffer(temp.bytes, temp.getWidth(), temp.getHeight());
                 frame.setPts(temp.getPts());
-                Test.videoFrames.remove(0);
+                KVSStream.videoFrames.remove(0);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            Test.frame_mutex.release();
+            KVSStream.frame_mutex.release();
         }
 
         if (frame == null) {
@@ -303,7 +303,7 @@ public class VideoConverter {
 
                     try {
                         this.mutex.acquire();
-                        Test.videoList.add(new H264Packet(writeData, pkt.pts(), pkt.dts(), pkt.duration(), pkt.flags()));
+                        KVSStream.videoList.add(new H264Packet(writeData, pkt.pts(), pkt.dts(), pkt.duration(), pkt.flags()));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } finally {

@@ -4,7 +4,7 @@ import com.amazonaws.kinesisvideo.app.H264Packet;
 import com.amazonaws.kinesisvideo.common.exception.KinesisVideoException;
 import com.amazonaws.kinesisvideo.common.preconditions.Preconditions;
 import com.amazonaws.kinesisvideo.app.AppMain;
-import com.amazonaws.kinesisvideo.app.Test;
+import com.amazonaws.kinesisvideo.app.KVSStream;
 import com.amazonaws.kinesisvideo.internal.mediasource.OnStreamDataAvailable;
 
 import com.amazonaws.kinesisvideo.producer.KinesisVideoFrame;
@@ -127,95 +127,102 @@ public class ImageFrameSource {
 
         H264Packet pkt = null;
         try {
-            Test.mutex.acquire();
-            if (Test.videoList.size() > 0) {
-                pkt = Test.videoList.firstElement();
-                Test.videoList.remove(0);
+            KVSStream.mutex.acquire();
+            if (KVSStream.videoList.size() > 0) {
+                pkt = KVSStream.videoList.firstElement();
+                KVSStream.videoList.remove(0);
             }
             else {
-                Test.mutex.release();
+                KVSStream.mutex.release();
                 return null;
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        Test.mutex.release();
+        KVSStream.mutex.release();
 
         if (encodeIndex == 0) {
             String messagePayload =
                     "{\"type\":\""
                             + "streamStart"
                             + "\"}";
-            Message message = new Message("SDP_OFFER", Test.recipientClientId, Test.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
-            Test.client.sendSdpOffer(message);
+            Message message = new Message("SDP_OFFER", KVSStream.recipientClientId, KVSStream.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
+            KVSStream.client.sendSdpOffer(message);
 
             encodeIndex = 1;
         }
 
-        if (Test.receiveStartExamSignal) {
-            Test.startStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+        if (KVSStream.receiveStartExamSignal) {
+            KVSStream.startStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
-            Test.receiveStartExamSignal = false;
+            KVSStream.receiveStartExamSignal = false;
         }
 
-        if (Test.receiveSecondExamSignal) {
-            Test.secondStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+        if (KVSStream.receiveSecondExamSignal) {
+            KVSStream.secondStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
-            Test.receiveSecondExamSignal = false;
+            KVSStream.receiveSecondExamSignal = false;
         }
 
-        if (Test.receiveThirdExamSignal) {
-            Test.thirdStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+        if (KVSStream.receiveThirdExamSignal) {
+            KVSStream.thirdStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
-            Test.receiveThirdExamSignal = false;
+            KVSStream.receiveThirdExamSignal = false;
         }
 
-        if (Test.receiveFourthExamSignal) {
-            Test.fourthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+        if (KVSStream.receiveFourthExamSignal) {
+            KVSStream.fourthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
-            Test.receiveFourthExamSignal = false;
+            KVSStream.receiveFourthExamSignal = false;
         }
 
-        if (Test.receiveFifthExamSignal) {
-            Test.fifthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+        if (KVSStream.receiveFifthExamSignal) {
+            KVSStream.fifthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
-            Test.receiveFifthExamSignal = false;
+            KVSStream.receiveFifthExamSignal = false;
         }
 
-        if (Test.receiveEndExamSignal) {
-            Test.endStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
+        if (KVSStream.receiveEndExamSignal) {
+            KVSStream.endStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
 
-            System.out.println(Test.startStreamTime + "::::" + Test.endStreamTime);
+            System.out.println(KVSStream.startStreamTime + "::::" + KVSStream.endStreamTime);
             String messagePayload =
                     "{"
                             + "\"type\": \"streamEnd\","
-                            + "\"startTime\":" + Test.startStreamTime + ","
-                            + "\"secondTime\":" + Test.secondStreamTime + ","
-                            + "\"thirdTime\":" + Test.thirdStreamTime + ","
-                            + "\"fourthTime\":" + Test.fourthStreamTime + ","
-                            + "\"fifthTime\":" + Test.fifthStreamTime + ","
-                            + "\"endTime\":" + Test.endStreamTime
+                            + "\"startTime\":" + KVSStream.startStreamTime + ","
+                            + "\"secondTime\":" + KVSStream.secondStreamTime + ","
+                            + "\"thirdTime\":" + KVSStream.thirdStreamTime + ","
+                            + "\"fourthTime\":" + KVSStream.fourthStreamTime + ","
+                            + "\"fifthTime\":" + KVSStream.fifthStreamTime + ","
+                            + "\"endTime\":" + KVSStream.endStreamTime
                             + "}";
-            Message message = new Message("SDP_OFFER", Test.recipientClientId, Test.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
-            Test.client.sendSdpOffer(message);
+            Message message = new Message("SDP_OFFER", KVSStream.recipientClientId, KVSStream.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
+            KVSStream.client.sendSdpOffer(message);
 
-            Test.receiveEndExamSignal = false;
+            KVSStream.receiveEndExamSignal = false;
             output = false;
 
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
-            System.out.println("------------------------------------------------------------");
+            KVSStream.stopKinesisVideo();
+
+//            System.out.println("11111111111111");
+//            System.out.println("11111111111111");
+//            System.out.println("11111111111111");
+//            System.out.println("11111111111111");
+//
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
+//            System.out.println("------------------------------------------------------------");
         }
 
         return new KinesisVideoFrame(
