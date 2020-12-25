@@ -521,7 +521,11 @@ public final class KVSStream {
         // } catch (final KinesisVideoException e) {
         //     throw new RuntimeException(e);
         // }
-        mediaSource.stop();
+        try {
+            mediaSource.stop();
+        } catch (final KinesisVideoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
