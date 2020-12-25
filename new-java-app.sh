@@ -8,6 +8,7 @@ if [ "$#" != 8 ]; then
 	  exit
   fi
 
+  echo "111111111111111111111111111111111111111111"
   aws configure set aws_access_key_id $1
   aws configure set aws_secret_access_key $2
   aws configure set region $3
@@ -25,5 +26,5 @@ if [ "$#" != 8 ]; then
   classpath_values=$(cat $jar_files)
   # Start the app
   #java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Dkvs-stream=${KVS_STREAM} -Dkvs-channel=${KVS_Channel} -Djava.library.path=/opt/kvs_bridge/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
-  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Daws.channel=${CHANNEL} -Daws.stream=${STREAM} -Daws.session=${SESSION} -Daws.email=${EMAIL} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+  java -classpath target/kvs-bridge1-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Daws.channel=${CHANNEL} -Daws.stream=${STREAM} -Daws.session=${SESSION} -Daws.email=${EMAIL} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
 
