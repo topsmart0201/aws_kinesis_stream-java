@@ -75,7 +75,7 @@ public final class KVSStream {
     private static List<RTCIceServer> peerIceServers = new ArrayList<>();
     private static PeerConnectionFactory peerConnectionFactory;
     private static Configuration peerConfiguration = new Configuration();
-    public static boolean isInit = false;
+    public static boolean isInit = false, isStop = false;
     public static long firstPickTime = 0;
     public static VideoConverter videoConverter = null;
 
@@ -378,6 +378,8 @@ public final class KVSStream {
             @Override
             public void run() {
                 while (true) {
+                    if (isStop)
+                        break;
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     long current = timestamp.getTime();
                     if (firstPickTime + FRAME_DURATION < current) {
@@ -523,6 +525,7 @@ public final class KVSStream {
         // }
         try {
             mediaSource.stop();
+            isStop = true;
         } catch (final KinesisVideoException e) {
             throw new RuntimeException(e);
         }
