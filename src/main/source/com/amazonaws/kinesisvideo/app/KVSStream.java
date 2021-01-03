@@ -379,7 +379,7 @@ public final class KVSStream {
             public void run() {
                 while (true) {
                     if (isStop) {
-                        destroy();
+                        System.exit(0);
                         break;
                     }
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
