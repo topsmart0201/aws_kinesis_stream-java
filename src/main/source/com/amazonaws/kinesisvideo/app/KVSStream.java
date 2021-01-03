@@ -378,8 +378,10 @@ public final class KVSStream {
             @Override
             public void run() {
                 while (true) {
-                    if (isStop)
+                    if (isStop) {
+                        destroy();
                         break;
+                    }
                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                     long current = timestamp.getTime();
                     if (firstPickTime + FRAME_DURATION < current) {
