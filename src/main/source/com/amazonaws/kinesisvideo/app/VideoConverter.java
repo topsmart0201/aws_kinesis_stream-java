@@ -119,7 +119,7 @@ public class VideoConverter {
 
         /* put sample parameters */
 //        this.c.bit_rate(400000);
-        this.c.bit_rate(1500000);
+        this.c.bit_rate(3000000);
         /* resolution must be a multiple of two */
         this.c.width(this.dst_w);
         this.c.height(this.dst_h);
@@ -141,7 +141,7 @@ public class VideoConverter {
         this.c.scenechange_threshold(0);
         this.c.pix_fmt(AV_PIX_FMT_YUV420P);
         if (this.codec.id() == AV_CODEC_ID_H264) {
-            av_opt_set(this.c.priv_data(), "preset", "fast", 0);
+            av_opt_set(this.c.priv_data(), "preset", "ultrafast", 0);
             av_opt_set(this.c.priv_data(), "x264opts", "no-scenecut", 0);
         }
 
