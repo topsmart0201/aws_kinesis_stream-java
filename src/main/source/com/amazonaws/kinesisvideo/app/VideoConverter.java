@@ -139,7 +139,7 @@ public class VideoConverter {
 	this.c.qmin(10);
 	this.c.qmax(51);
         this.c.keyint_min(fps);
-        this.c.max_b_frames(10);
+        this.c.max_b_frames(20);
 //        this.c.scenechange_threshold(0);
         this.c.pix_fmt(AV_PIX_FMT_YUV420P);
         if (this.codec.id() == AV_CODEC_ID_H264) {
