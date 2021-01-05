@@ -118,8 +118,8 @@ public class VideoConverter {
         }
 
         /* put sample parameters */
-//        this.c.bit_rate(400000);
-        this.c.bit_rate(3000000);
+        this.c.bit_rate(400000);
+//        this.c.bit_rate(1000000);
         /* resolution must be a multiple of two */
         this.c.width(this.dst_w);
         this.c.height(this.dst_h);
@@ -136,13 +136,16 @@ public class VideoConverter {
          * will always be I frame irrespective to gop_size
          */
         this.c.gop_size(fps);
+	this.c.qmin(10);
+	this.c.qmax(51);
         this.c.keyint_min(fps);
-        this.c.max_b_frames(1);
-        this.c.scenechange_threshold(0);
+        this.c.max_b_frames(10);
+//        this.c.scenechange_threshold(0);
         this.c.pix_fmt(AV_PIX_FMT_YUV420P);
         if (this.codec.id() == AV_CODEC_ID_H264) {
-            av_opt_set(this.c.priv_data(), "preset", "ultrafast", 0);
-            av_opt_set(this.c.priv_data(), "x264opts", "no-scenecut", 0);
+//        av_opt_set(this.c.priv_data(), "x264opts", "bitrate=2M:vbv-maxrate=2M", 0);
+            av_opt_set(this.c.priv_data(), "preset", "medium", 0);
+//            av_opt_set(this.c.priv_data(), "x264opts", "no-scenecut", 0);
         }
 
         /* open it */
@@ -287,19 +290,19 @@ public class VideoConverter {
                     long current = timestamp.getTime();
 //                    System.out.println("Convert:  pts :"+pkt.pts() + " dts:"+pkt.dts() + " flags:"+pkt.flags() + " duration:"+pkt.duration());
 
-//                    try {
-//                        FileOutputStream fos = null;
-//                        String filename = String.format("frame-%04d.h264", encodeIndex);
-//                        fos = new FileOutputStream("/home/ubuntu/h264/" + filename);
-//                        fos.write(writeData, 0, pkt.size());
-//                        fos.close();
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                        System.exit(-1);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                        System.exit(-1);
-//                    }
+/*                    try {
+                        FileOutputStream fos = null;
+                        String filename = String.format("frame-%04d.h264", encodeIndex);
+                        fos = new FileOutputStream("/home/ubuntu/h264/" + filename);
+                        fos.write(writeData, 0, pkt.size());
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                        System.exit(-1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.exit(-1);
+                    }*/
 
                     try {
                         this.mutex.acquire();
