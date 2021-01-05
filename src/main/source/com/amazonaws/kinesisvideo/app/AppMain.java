@@ -44,40 +44,6 @@ public final class AppMain {
     public static void main(final String[] args) {
         kvsstream = new KVSStream(channel, stream, session, email);
         kvsstream.init();
-//        sqs = AmazonSQSClientBuilder.standard()
-//                .withCredentials(AuthHelper.getSystemPropertiesCredentialsProvider())
-//                .withRegion(DEFAULT_REGION)
-//                .build();
-//
-//        receiveMessageRequest = new ReceiveMessageRequest(standardQueueUrl)
-//                .withWaitTimeSeconds(0)
-//                .withMaxNumberOfMessages(10);
-//
-//        while(true) {
-//            System.out.println("Uninitialize");
-//             if (!isInitialize) {
-//                sqsMessages = sqs.receiveMessage(receiveMessageRequest).getMessages();
-//                for (int i = 0; i < sqsMessages.size(); i ++) {
-//                    String strMessage = sqsMessages.get(i).getBody();
-//                    JsonObject jsonObject = new JsonParser().parse(strMessage).getAsJsonObject();
-//                    String channel = jsonObject.get("signalChannelName").getAsString();
-//                    String stream = jsonObject.get("streamName").getAsString();
-//                    String session = jsonObject.get("sessionId").getAsString();
-//                    String email = jsonObject.get("email").getAsString();
-//
-//                    DeleteMessageRequest dmr = new DeleteMessageRequest();
-//                    dmr.withQueueUrl(standardQueueUrl).withReceiptHandle(sqsMessages.get(i).getReceiptHandle());
-//                    sqs.deleteMessage(dmr);
-//
-//                    kvsstream = new KVSStream(channel, stream, session, email);
-//                    kvsstream.init();
-//                    isInitialize = true;
-//                    break;
-//                }
-//             }
-//             if (isInitialize)
-//                 break;
-//        }
     }
 }
 

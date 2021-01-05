@@ -58,7 +58,7 @@ public final class KVSStream {
     private static String kvsChannel = "";
     public static String sessionID = "";
     public static String email = "";
-    public static long examTimes[];
+    public long examTimes[];
 
     public static volatile SignalingServiceWebSocketClient client;
     private static final String DEFAULT_REGION = System.getProperty("aws.region");
@@ -103,6 +103,8 @@ public final class KVSStream {
         this.kvsStream = streamName;
         this.sessionID = sessionId;
         this.email = email;
+	this.examTimes = new long[5];
+
     }
 
     public void init() {
@@ -179,8 +181,8 @@ public final class KVSStream {
             public void onSdpOffer(final Event offerEvent) {
                 String s = new String(Base64.getDecoder().decode(offerEvent.getMessagePayload()));
                 JsonObject jsonObject = new JsonParser().parse(s).getAsJsonObject();
-
                 if (jsonObject.get("type").getAsString().equals("exam")) {
+
                     int idx = jsonObject.get("idx").getAsInt();
                     boolean endStatus = jsonObject.get("endStatus").getAsBoolean();
 
@@ -194,6 +196,7 @@ public final class KVSStream {
                                         + "\"type\": \"streamEnd\","
                                         + "\"examTimes\":" + gson.toJson(examTimes).toString()
                                         + "}";
+			System.out.println(messagePayload);
                         Message message = new Message("SDP_OFFER", recipientClientId, mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
                         client.sendSdpOffer(message);
                         stopKinesisVideo();

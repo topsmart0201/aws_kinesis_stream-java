@@ -72,8 +72,8 @@ public class NativeKinesisVideoProducerStream implements KinesisVideoProducerStr
                 synchronized (mMonitor) {
                     while (!mDataAvailable && !mStreamClosed) {
                         try {
-                            mLog.debug("no data for stream %s with uploadHandle %d, waiting", mStreamInfo.getName(),
-                                    mUploadHandle);
+//                            mLog.debug("no data for stream %s with uploadHandle %d, waiting", mStreamInfo.getName(),
+  //                                  mUploadHandle);
                             mMonitor.wait(TIMEOUT_IN_MS);
                         } catch (final InterruptedException e) {
                             mLog.exception(e, "Waiting for the data availability with uploadHandle %d"

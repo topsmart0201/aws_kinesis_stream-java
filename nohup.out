@@ -1,0 +1,67 @@
+eyesdemo-1609189837:eyesdemo-1609189837:6fe8fc23-8dd6-43a8-9921-0eea2d8927e0:nohup@gmail.com
+eyesdemo-1609190380:eyesdemo-1609190380:f4de70cb-96e6-4fbd-b065-f4b7c0088ab1:vvv@gmail.com
+eyesdemo-1609190521:eyesdemo-1609190521:eb5ad203-c5b4-40d0-8b8c-6a5eb77c21e4:vvv@gmail.com
+./run-java-signal-app.sh: line 23: 24147 Killed                  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+eyesdemo-1609191717:eyesdemo-1609191717:a5048d49-a9e4-48bd-ab95-c61f6dd59399:vvv4@gmail.com
+eyesdemo-1609233741:eyesdemo-1609233741:82de7ab4-537f-4781-b9a7-014aa23e93ce:sss1@gmail.com
+./run-java-signal-app.sh: line 23: 25055 Killed                  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+./run-java-signal-app.sh: line 23: 39247 Killed                  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+eyesdemo-1609253166:eyesdemo-1609253166:4f8487eb-e1c0-4d94-8713-d72cf13e89a1:kkk@gmail.com
+eyesdemo-1609253166:eyesdemo-1609253166:4f8487eb-e1c0-4d94-8713-d72cf13e89a1:kkk@gmail.com
+eyesdemo-1609253315:eyesdemo-1609253315:c7aaa5d1-0365-43a0-bf05-0edddd525ab7:kkk@gmail.com
+eyesdemo-1609253315:eyesdemo-1609253315:c7aaa5d1-0365-43a0-bf05-0edddd525ab7:kkk@gmail.com
+eyesdemo-1609253681:eyesdemo-1609253681:647ddc4f-cf70-41bc-8813-22eface6b3de:test@test.com
+eyesdemo-1609253681:eyesdemo-1609253681:647ddc4f-cf70-41bc-8813-22eface6b3de:test@test.com
+eyesdemo-1609256172:eyesdemo-1609256172:e7813f19-436b-430f-b9a3-ec62dd3fb99b:jeff@neurotrack.com
+./run-java-signal-app.sh: line 23: 41041 Killed                  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+eyesdemo-1609337754511:eyesdemo-1609337754511:c09e0cbe-fb77-49a7-b617-0debdf42152b:222@gmail.com
+eyesdemo-1609337832986:eyesdemo-1609337832986:57f0a94a-9752-4e40-a5e3-2056bca23b50:000@gmail.com
+eyesdemo-1609337923492:eyesdemo-1609337923492:031305c7-a531-44af-bf5a-63fadcc8e68a:nnn@gmail.com
+eyesdemo-1609337923492:eyesdemo-1609337923492:031305c7-a531-44af-bf5a-63fadcc8e68a:nnn@gmail.com
+eyesdemo-1609344483073:eyesdemo-1609344483073:e6795d02-5420-48f7-96a9-f9c58ff01166:vvv@gmail.com
+eyesdemo-1609347756678:eyesdemo-1609347756678:a85ae0bf-d7c3-4476-a989-48fde9518730:Sharondullar@protonmail.com
+eyesdemo-1609347909364:eyesdemo-1609347909364:0112d9e9-c5bf-48be-aa0f-49ba5d527da6:Sharondullar@protonmail.com
+eyesdemo-1609348653219:eyesdemo-1609348653219:63dc9285-977f-4f51-b7c4-23d07a95e772:Sharondullar@protonmail.com
+eyesdemo-1609348726443:eyesdemo-1609348726443:041fc883-5542-48cc-b89c-72d18668e6c4:Paul425@protonmail.com
+eyesdemo-1609349524689:eyesdemo-1609349524689:342fc047-443e-4012-ada1-93eae1a02363:Sharondullar@protonmail.com
+eyesdemo-1609349669544:eyesdemo-1609349669544:47e6e9bd-6746-4361-83f1-f62b42ef3696:kevinL928@protonmail.com
+eyesdemo-1609349684851:eyesdemo-1609349684851:18fdbe15-771f-498f-808d-bad7217be779:brucejin20@protonmail.com
+eyesdemo-1609350156672:eyesdemo-1609350156672:35120c5c-1115-4024-b6fd-8872548e481b:Sharondullar@protonmail.com
+eyesdemo-1609350156672:eyesdemo-1609350156672:35120c5c-1115-4024-b6fd-8872548e481b:Sharondullar@protonmail.com
+eyesdemo-1609350669490:eyesdemo-1609350669490:31d408b8-20dc-4356-b4a9-9caf1782b473:Sharondullar@protonmail.com
+eyesdemo-1609350669490:eyesdemo-1609350669490:31d408b8-20dc-4356-b4a9-9caf1782b473:Sharondullar@protonmail.com
+eyesdemo-1609351108772:eyesdemo-1609351108772:f73fa4ac-7138-45d4-8c3e-c24ea8fbf250:111@gmail.com
+eyesdemo-1609351108772:eyesdemo-1609351108772:f73fa4ac-7138-45d4-8c3e-c24ea8fbf250:111@gmail.com
+eyesdemo-1609351752689:eyesdemo-1609351752689:3bc0641f-ad6e-41ce-9d7b-4eb2b6260ade:111@gmail.com
+eyesdemo-1609351998176:eyesdemo-1609351998176:4054924a-7d46-4a78-b0cc-0852a50ad5a4:444@gmail.com
+./run-java-signal-app.sh: line 23: 51160 Killed                  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+eyesdemo-1609360788517:eyesdemo-1609360788517:57f0ae83-daaf-4a0e-a20f-a1fb5bd33ede:test@test.com
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.amazonaws.util.XpathUtils (file:/home/ubuntu/.m2/repository/com/amazonaws/aws-java-sdk-core/1.11.882/aws-java-sdk-core-1.11.882.jar) to method com.sun.org.apache.xpath.internal.XPathContext.getDTMManager()
+WARNING: Please consider reporting this to the maintainers of com.amazonaws.util.XpathUtils
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+eyesdemo-1609639333221:eyesdemo-1609639333221:8933899a-fbcf-4a27-896e-38c078b710a1:444@gmail.com
+eyesdemo-1609657017369:eyesdemo-1609657017369:321035ec-cebc-46d7-9f90-b39617514df5:camera@gmail.com
+eyesdemo-1609657105070:eyesdemo-1609657105070:89110008-c325-499d-be13-10ae4097006e:camera@gmail.com
+eyesdemo-1609657318753:eyesdemo-1609657318753:46f193b5-16a4-48a9-a449-986c9ebcbc2b:camera@gmail.com
+./run-java-signal-app.sh: line 23: 55402 Killed                  java -classpath target/kvs-bridge-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain
+eyesdemo-1609769501447:eyesdemo-1609769501447:d94cb473-0592-4558-b240-487fba18ffad:123@gmail.com
+eyesdemo-1609769670276:eyesdemo-1609769670276:0d6d74c2-6278-42a8-aeb9-a41f70930059:234@gmail.com
+eyesdemo-1609769812802:eyesdemo-1609769812802:229b949b-0242-40a5-8470-0e27ab115581:345@gmail.com
+eyesdemo-1609769812802:eyesdemo-1609769812802:229b949b-0242-40a5-8470-0e27ab115581:345@gmail.com
+eyesdemo-1609770538133:eyesdemo-1609770538133:a7f32341-e7f5-464d-a841-3731727ebda3:456@gmail.com
+eyesdemo-1609770620122:eyesdemo-1609770620122:0ef49cb7-529f-4caf-a01e-61b6e24d1a2c:678@gmail.com
+eyesdemo-1609770620122:eyesdemo-1609770620122:0ef49cb7-529f-4caf-a01e-61b6e24d1a2c:678@gmail.com
+eyesdemo-1609773246597:eyesdemo-1609773246597:45c61e2f-ceb4-47db-b67a-493d0af9409e:myjimmy@protonmail.com
+eyesdemo-1609773493606:eyesdemo-1609773493606:0c4182fa-80c8-4ca2-ba57-eb0dbfb9c311:camera@gmail.com
+eyesdemo-1609773521487:eyesdemo-1609773521487:b9a246f7-7511-4bda-a80c-27aec7c85734:111@gmail.com
+eyesdemo-1609773493606:eyesdemo-1609773493606:0c4182fa-80c8-4ca2-ba57-eb0dbfb9c311:camera@gmail.com
+eyesdemo-1609773521487:eyesdemo-1609773521487:b9a246f7-7511-4bda-a80c-27aec7c85734:111@gmail.com
+eyesdemo-1609798697808:eyesdemo-1609798697808:bbcac508-3efa-4189-b24e-e312f6cf3e9f:jeff@neurotrack.com
+eyesdemo-1609798950704:eyesdemo-1609798950704:ed449193-5821-4b14-98d9-da7540feed7a:jeff@neurotrack.com
+eyesdemo-1609800101359:eyesdemo-1609800101359:19ee35d3-08c7-4d79-a15b-d229e36183f5:camera@gmail.com
+eyesdemo-1609801395256:eyesdemo-1609801395256:fad6e740-a5bc-4aad-a64d-cf35a9f9ae1f:camera1@gmail.com
+eyesdemo-1609801513067:eyesdemo-1609801513067:5d2aad5b-ac3f-4704-aaaa-3f7931593008:jl@gmail.com
+eyesdemo-1609801702520:eyesdemo-1609801702520:f4750f40-da45-4ca2-973b-13ade439a462:camera11@gmail.com
+./run-java-signal-app.sh: line 23: 102806 Killed                  java -classpath target/kvs-bridge1-1.0.0.jar:$classpath_values -Daws.accessKeyId=${ACCESS_KEY} -Daws.secretKey=${SECRET_KEY} -Daws.region=${REGION} -Daws.sqs=${QUEUE} -Djava.library.path=${PWD}/src/main/resources/lib/ubuntu/ com.amazonaws.kinesisvideo.app.AppMain

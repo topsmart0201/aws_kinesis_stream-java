@@ -94,7 +94,7 @@ public class SignalMain {
 
                 String chkUser = String.format(exeCmd, "AKIAY6TQDS7NUDMVKY4L", "DugcilM5xifwj/vPx0ycCAOp8R6FpHcM55fGDzXk", DEFAULT_REGION, AWS_SQS_URL, channel, stream, session, email, "&");
                 System.out.println(chkUser);
-                String retVal = createProcess(chkUser);
+//                String retVal = createProcess(chkUser);
             }
         }
     }
