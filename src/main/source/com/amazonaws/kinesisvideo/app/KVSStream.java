@@ -26,6 +26,7 @@ import com.amazonaws.services.kinesisvideosignalingchannels.AmazonKinesisVideoSi
 import com.amazonaws.services.kinesisvideosignalingchannels.AmazonKinesisVideoSignalingChannelsClient;
 import com.amazonaws.services.kinesisvideosignalingchannels.model.GetIceServerConfigRequest;
 import com.amazonaws.services.kinesisvideosignalingchannels.model.GetIceServerConfigResult;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.onvoid.webrtc.*;
@@ -57,8 +58,7 @@ public final class KVSStream {
     private static String kvsChannel = "";
     public static String sessionID = "";
     public static String email = "";
-    public static long startStreamTime = 0;
-    public static long endStreamTime = 0, secondStreamTime = 0, thirdStreamTime = 0, fourthStreamTime = 0, fifthStreamTime = 0;
+    public static long examTimes[];
 
     public static volatile SignalingServiceWebSocketClient client;
     private static final String DEFAULT_REGION = System.getProperty("aws.region");
@@ -95,6 +95,8 @@ public final class KVSStream {
     public static boolean receiveEndExamSignal = false, receiveStartExamSignal = false, receiveSecondExamSignal = false, receiveThirdExamSignal = false, receiveFourthExamSignal = false, receiveFifthExamSignal = false;
 
     public static MediaSource mediaSource = null;
+
+    private final Gson gson = new Gson();
 
     public KVSStream(String channelName, String streamName, String sessionId, String email) {
         this.kvsChannel = channelName;
@@ -177,23 +179,25 @@ public final class KVSStream {
             public void onSdpOffer(final Event offerEvent) {
                 String s = new String(Base64.getDecoder().decode(offerEvent.getMessagePayload()));
                 JsonObject jsonObject = new JsonParser().parse(s).getAsJsonObject();
-                if (jsonObject.get("type").getAsString().equals("examFinish")) {
-                    receiveEndExamSignal = true;
-                    return;
-                } else if (jsonObject.get("type").getAsString().equals("examStart")) {
-                    receiveStartExamSignal = true;
-                    return;
-                } else if (jsonObject.get("type").getAsString().equals("examSecond")) {
-                    receiveSecondExamSignal = true;
-                    return;
-                } else if (jsonObject.get("type").getAsString().equals("examThird")) {
-                    receiveThirdExamSignal = true;
-                    return;
-                } else if (jsonObject.get("type").getAsString().equals("examFourth")) {
-                    receiveFourthExamSignal = true;
-                    return;
-                } else if (jsonObject.get("type").getAsString().equals("examFifth")) {
-                    receiveFifthExamSignal = true;
+
+                if (jsonObject.get("type").getAsString().equals("exam")) {
+                    int idx = jsonObject.get("idx").getAsInt();
+                    boolean endStatus = jsonObject.get("endStatus").getAsBoolean();
+
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    examTimes[idx] = timestamp.getTime();
+
+                    if (endStatus)
+                    {
+                        String messagePayload =
+                                "{"
+                                        + "\"type\": \"streamEnd\","
+                                        + "\"examTimes\":" + gson.toJson(examTimes).toString()
+                                        + "}";
+                        Message message = new Message("SDP_OFFER", recipientClientId, mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
+                        client.sendSdpOffer(message);
+                        stopKinesisVideo();
+                    }
                     return;
                 }
 

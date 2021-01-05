@@ -48,8 +48,8 @@ public class ImageFrameSource {
     private final Log log = LogFactory.getLog(ImageFrameSource.class);
     private final String metadataName = "ImageLoop";
     private int metadataCount = 0;
-    private static int encodeIndex = 0;
-    private static boolean output = true;
+    private static int firstPacket = 0;
+//    private static boolean output = true;
 
     public ImageFrameSource(final ImageFileMediaSourceConfiguration configuration) {
         this.configuration = configuration;
@@ -142,82 +142,16 @@ public class ImageFrameSource {
 
         KVSStream.mutex.release();
 
-        if (encodeIndex == 0) {
+        if (firstPacket == 0) {
             String messagePayload =
                     "{\"type\":\""
                             + "streamStart"
                             + "\"}";
             Message message = new Message("SDP_OFFER", KVSStream.recipientClientId, KVSStream.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
             KVSStream.client.sendSdpOffer(message);
-
-            encodeIndex = 1;
+            firstPacket = 1;
         }
 
-        if (KVSStream.receiveStartExamSignal) {
-            KVSStream.startStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
-
-            KVSStream.receiveStartExamSignal = false;
-        }
-
-        if (KVSStream.receiveSecondExamSignal) {
-            KVSStream.secondStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
-
-            KVSStream.receiveSecondExamSignal = false;
-        }
-
-        if (KVSStream.receiveThirdExamSignal) {
-            KVSStream.thirdStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
-
-            KVSStream.receiveThirdExamSignal = false;
-        }
-
-        if (KVSStream.receiveFourthExamSignal) {
-            KVSStream.fourthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
-
-            KVSStream.receiveFourthExamSignal = false;
-        }
-
-        if (KVSStream.receiveFifthExamSignal) {
-            KVSStream.fifthStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
-
-            KVSStream.receiveFifthExamSignal = false;
-        }
-
-        if (KVSStream.receiveEndExamSignal) {
-            KVSStream.endStreamTime = pkt.getDts() * HUNDREDS_OF_NANOS_IN_A_MILLISECOND / 10000;
-
-            System.out.println(KVSStream.startStreamTime + "::::" + KVSStream.endStreamTime);
-            String messagePayload =
-                    "{"
-                            + "\"type\": \"streamEnd\","
-                            + "\"startTime\":" + KVSStream.startStreamTime + ","
-                            + "\"secondTime\":" + KVSStream.secondStreamTime + ","
-                            + "\"thirdTime\":" + KVSStream.thirdStreamTime + ","
-                            + "\"fourthTime\":" + KVSStream.fourthStreamTime + ","
-                            + "\"fifthTime\":" + KVSStream.fifthStreamTime + ","
-                            + "\"endTime\":" + KVSStream.endStreamTime
-                            + "}";
-            Message message = new Message("SDP_OFFER", KVSStream.recipientClientId, KVSStream.mClientId, new String(Base64.getEncoder().encode(messagePayload.getBytes())));
-            KVSStream.client.sendSdpOffer(message);
-
-            KVSStream.receiveEndExamSignal = false;
-            output = false;
-
-            KVSStream.stopKinesisVideo();
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-           System.out.println("------------------------------------------------------------");
-        }
 
         return new KinesisVideoFrame(
                 frameCounter,
