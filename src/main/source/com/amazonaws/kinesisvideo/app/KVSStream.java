@@ -333,6 +333,7 @@ public final class KVSStream {
                         videoTrack.addSink(frame -> publishFrame(frame));
                     }
                 }
+                
                 @Override
                 public void onIceCandidate(RTCIceCandidate rtcIceCandidate) {
                     Message message = createIceCandidateMessage(rtcIceCandidate);
